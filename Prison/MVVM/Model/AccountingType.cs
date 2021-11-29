@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Prison.Model
 {
-    public partial class AccountingType
+    public partial class AccountingType : ICloneable
     {
         public AccountingType()
         {
@@ -16,5 +16,9 @@ namespace Prison.Model
         public string Name { get; set; }
 
         public virtual ICollection<JournalArrivalAndDeparture> JournalArrivalAndDepartures { get; set; }
+        public object Clone()
+        {
+            return MemberwiseClone();
+        }
     }
 }

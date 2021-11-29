@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Prison.Model
 {
-    public partial class Post
+    public partial class Post : ICloneable
     {
         public Post()
         {
@@ -19,5 +19,9 @@ namespace Prison.Model
 
         public virtual AccessLevel Level { get; set; }
         public virtual ICollection<Worker> Workers { get; set; }
+        public object Clone()
+        {
+            return MemberwiseClone();
+        }
     }
 }

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Prison.Model
 {
-    public partial class Gender
+    public partial class Gender : ICloneable
     {
         public Gender()
         {
@@ -18,5 +18,9 @@ namespace Prison.Model
 
         public virtual ICollection<Prisoner> Prisoners { get; set; }
         public virtual ICollection<Worker> Workers { get; set; }
+        public object Clone()
+        {
+            return MemberwiseClone();
+        }
     }
 }

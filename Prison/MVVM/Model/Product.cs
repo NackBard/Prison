@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 #nullable disable
 
 namespace Prison.Model
 {
-    public partial class Product
+    public partial class Product : ICloneable
     {
         public Product()
         {
@@ -19,5 +20,9 @@ namespace Prison.Model
         public virtual TypeProduct ProductType { get; set; }
         public virtual ICollection<SalesAccounting> SalesAccountings { get; set; }
         public virtual ICollection<Warehouse> Warehouses { get; set; }
+        public object Clone()
+        {
+            return MemberwiseClone();
+        }
     }
 }

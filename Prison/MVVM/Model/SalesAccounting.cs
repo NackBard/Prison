@@ -4,7 +4,7 @@
 
 namespace Prison.Model
 {
-    public partial class SalesAccounting
+    public partial class SalesAccounting : ICloneable
     {
         public int? Id { get; set; }
         public DateTime Date { get; set; }
@@ -15,5 +15,9 @@ namespace Prison.Model
 
         public virtual Prisoner Prisoner { get; set; }
         public virtual Product Product { get; set; }
+        public object Clone()
+        {
+            return MemberwiseClone();
+        }
     }
 }

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Prison.Model
 {
-    public partial class TypeProduct
+    public partial class TypeProduct : ICloneable
     {
         public TypeProduct()
         {
@@ -16,5 +16,9 @@ namespace Prison.Model
         public string Name { get; set; }
 
         public virtual ICollection<Product> Products { get; set; }
+        public object Clone()
+        {
+            return MemberwiseClone();
+        }
     }
 }

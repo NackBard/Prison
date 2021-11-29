@@ -4,7 +4,7 @@
 
 namespace Prison.Model
 {
-    public partial class AccountingDiningVisit
+    public partial class AccountingDiningVisit : ICloneable
     {
         public int? Id { get; set; }
         public int SetId { get; set; }
@@ -13,5 +13,10 @@ namespace Prison.Model
 
         public virtual Prisoner PrisonerNavigation { get; set; }
         public virtual Set Set { get; set; }
+
+        public object Clone()
+        {
+            return MemberwiseClone();
+        }
     }
 }
