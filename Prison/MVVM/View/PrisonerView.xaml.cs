@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace Prison.MVVM.View
 {
     /// <summary>
-    /// Логика взаимодействия для AuthView.xaml
+    /// Логика взаимодействия для PrisonerView.xaml
     /// </summary>
-    public partial class AuthView : Page
+    public partial class PrisonerView : UserControl
     {
-        public AuthView()
+        public PrisonerView()
         {
             InitializeComponent();
         }

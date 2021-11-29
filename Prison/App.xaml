@@ -16,10 +16,63 @@
             <DataTemplate DataType="{x:Type viewModel:AccessLevelViewModel}">
                 <view:AccessLevelView/>
             </DataTemplate>
-            <DataTemplate DataType="{x:Type viewModel:AuthViewModel}">
-                <view:AuthView/>
+            <DataTemplate DataType="{x:Type viewModel:AccountingDiningVisitViewModel}">
+                <view:AccountingDiningVisitView/>
             </DataTemplate>
-
+            <DataTemplate DataType="{x:Type viewModel:AccountingPrisonerViewModel}">
+                <view:AccountingPrisonerView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel:AccountingRehabilitationWorkViewModel}">
+                <view:AccountingRehabilitationWorkView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel:AccountingTypeViewModel}">
+                <view:AccountingTypeView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel:BehaviorAssessmentViewModel}">
+                <view:BehaviorAssessmentView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel:DishViewModel}">
+                <view:DishView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel:GenderViewModel}">
+                <view:GenderView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel:JournalArrivalAndDepartureViewModel}">
+                <view:JournalArrivalAndDepartureView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel:PostViewModel}">
+                <view:PostView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel:PrisonerViewModel}">
+                <view:PrisonerView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel:ProductViewModel}">
+                <view:ProductView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel:ProsecutionViewModel}">
+                <view:ProsecutionView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel:SalesAccountingViewModel}">
+                <view:SalesAccountingView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel:SetViewModel}">
+                <view:SetView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel:StatusViewModel}">
+                <view:StatusView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel:TypeProductViewModel}">
+                <view:TypeProductView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel:WarehouseViewModel}">
+                <view:WarehouseView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel:WorkerViewModel}">
+                <view:WorkerView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel:WorkViewModel}">
+                <view:WorkView/>
+            </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
