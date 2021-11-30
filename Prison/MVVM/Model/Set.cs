@@ -7,17 +7,8 @@ namespace Prison.Model
 {
     public partial class Set : ICloneable
     {
-        public Set()
-        {
-            AccountingDiningVisits = new HashSet<AccountingDiningVisit>();
-            Dishes = new HashSet<Dish>();
-        }
-
         public int? Id { get; set; }
         public string Name { get; set; }
-
-        public virtual ICollection<AccountingDiningVisit> AccountingDiningVisits { get; set; }
-        public virtual ICollection<Dish> Dishes { get; set; }
         public object Clone()
         {
             return MemberwiseClone();
