@@ -59,18 +59,6 @@ namespace Prison.Model
                 entity.Property(e => e.Date).HasColumnType("datetime");
 
                 entity.Property(e => e.SetId).HasColumnName("Set_Id");
-
-                entity.HasOne(d => d.PrisonerNavigation)
-                    .WithMany(p => p.AccountingDiningVisits)
-                    .HasForeignKey(d => d.Prisoner)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Accountin__Priso__787EE5A0");
-
-                entity.HasOne(d => d.Set)
-                    .WithMany(p => p.AccountingDiningVisits)
-                    .HasForeignKey(d => d.SetId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Accountin__Set_I__778AC167");
             });
 
             modelBuilder.Entity<AccountingPrisoner>(entity =>
@@ -90,24 +78,6 @@ namespace Prison.Model
                 entity.Property(e => e.PrisonerId).HasColumnName("Prisoner_Id");
 
                 entity.Property(e => e.WorkerId).HasColumnName("Worker_Id");
-
-                entity.HasOne(d => d.Assessment)
-                    .WithMany(p => p.AccountingPrisoners)
-                    .HasForeignKey(d => d.AssessmentId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Accountin__Asses__04E4BC85");
-
-                entity.HasOne(d => d.Prisoner)
-                    .WithMany(p => p.AccountingPrisoners)
-                    .HasForeignKey(d => d.PrisonerId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Accountin__Priso__03F0984C");
-
-                entity.HasOne(d => d.Worker)
-                    .WithMany(p => p.AccountingPrisoners)
-                    .HasForeignKey(d => d.WorkerId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Accountin__Worke__02FC7413");
             });
 
             modelBuilder.Entity<AccountingRehabilitationWork>(entity =>
@@ -117,18 +87,6 @@ namespace Prison.Model
                 entity.Property(e => e.PrisonerId).HasColumnName("Prisoner_Id");
 
                 entity.Property(e => e.WorkId).HasColumnName("Work_Id");
-
-                entity.HasOne(d => d.Prisoner)
-                    .WithMany(p => p.AccountingRehabilitationWorks)
-                    .HasForeignKey(d => d.PrisonerId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Accountin__Priso__7C4F7684");
-
-                entity.HasOne(d => d.Work)
-                    .WithMany(p => p.AccountingRehabilitationWorks)
-                    .HasForeignKey(d => d.WorkId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Accountin__Work___7B5B524B");
             });
 
             modelBuilder.Entity<AccountingType>(entity =>
@@ -161,12 +119,6 @@ namespace Prison.Model
                     .IsUnicode(false);
 
                 entity.Property(e => e.SetId).HasColumnName("Set_Id");
-
-                entity.HasOne(d => d.Set)
-                    .WithMany(p => p.Dishes)
-                    .HasForeignKey(d => d.SetId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Dish__Set_Id__619B8048");
             });
 
             modelBuilder.Entity<Gender>(entity =>
@@ -188,18 +140,6 @@ namespace Prison.Model
                 entity.Property(e => e.Date).HasColumnType("datetime");
 
                 entity.Property(e => e.WorkerId).HasColumnName("Worker_Id");
-
-                entity.HasOne(d => d.AccountingType)
-                    .WithMany(p => p.JournalArrivalAndDepartures)
-                    .HasForeignKey(d => d.AccountingTypeId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Journal_a__Accou__00200768");
-
-                entity.HasOne(d => d.Worker)
-                    .WithMany(p => p.JournalArrivalAndDepartures)
-                    .HasForeignKey(d => d.WorkerId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Journal_a__Worke__7F2BE32F");
             });
 
             modelBuilder.Entity<Post>(entity =>
@@ -212,12 +152,6 @@ namespace Prison.Model
                     .IsRequired()
                     .HasMaxLength(40)
                     .IsUnicode(false);
-
-                entity.HasOne(d => d.Level)
-                    .WithMany(p => p.Posts)
-                    .HasForeignKey(d => d.LevelId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Post__Level_Id__5EBF139D");
             });
 
             modelBuilder.Entity<Prisoner>(entity =>
@@ -263,24 +197,6 @@ namespace Prison.Model
                     .IsRequired()
                     .HasMaxLength(200)
                     .IsUnicode(false);
-
-                entity.HasOne(d => d.Gender)
-                    .WithMany(p => p.Prisoners)
-                    .HasForeignKey(d => d.GenderId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Prisoner__Gender__6477ECF3");
-
-                entity.HasOne(d => d.Prosecution)
-                    .WithMany(p => p.Prisoners)
-                    .HasForeignKey(d => d.ProsecutionId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Prisoner__Prosec__656C112C");
-
-                entity.HasOne(d => d.Status)
-                    .WithMany(p => p.Prisoners)
-                    .HasForeignKey(d => d.StatusId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Prisoner__Status__66603565");
             });
 
             modelBuilder.Entity<Product>(entity =>
@@ -293,12 +209,6 @@ namespace Prison.Model
                     .IsUnicode(false);
 
                 entity.Property(e => e.ProductTypeId).HasColumnName("Product_type_Id");
-
-                entity.HasOne(d => d.ProductType)
-                    .WithMany(p => p.Products)
-                    .HasForeignKey(d => d.ProductTypeId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Product__Product__5AEE82B9");
             });
 
             modelBuilder.Entity<Prosecution>(entity =>
@@ -325,18 +235,6 @@ namespace Prison.Model
                 entity.Property(e => e.PrisonerId).HasColumnName("Prisoner_Id");
 
                 entity.Property(e => e.ProductId).HasColumnName("Product_Id");
-
-                entity.HasOne(d => d.Prisoner)
-                    .WithMany(p => p.SalesAccountings)
-                    .HasForeignKey(d => d.PrisonerId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Sales_acc__Priso__6FE99F9F");
-
-                entity.HasOne(d => d.Product)
-                    .WithMany(p => p.SalesAccountings)
-                    .HasForeignKey(d => d.ProductId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Sales_acc__Produ__6EF57B66");
             });
 
             modelBuilder.Entity<Set>(entity =>
@@ -374,12 +272,6 @@ namespace Prison.Model
                 entity.ToTable("Warehouse");
 
                 entity.Property(e => e.ProductId).HasColumnName("Product_Id");
-
-                entity.HasOne(d => d.Product)
-                    .WithMany(p => p.Warehouses)
-                    .HasForeignKey(d => d.ProductId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Warehouse__Produ__6C190EBB");
             });
 
             modelBuilder.Entity<Work>(entity =>
@@ -435,18 +327,6 @@ namespace Prison.Model
                     .IsRequired()
                     .HasMaxLength(40)
                     .IsUnicode(false);
-
-                entity.HasOne(d => d.Gender)
-                    .WithMany(p => p.Workers)
-                    .HasForeignKey(d => d.GenderId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Worker__Gender_I__73BA3083");
-
-                entity.HasOne(d => d.Post)
-                    .WithMany(p => p.Workers)
-                    .HasForeignKey(d => d.PostId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Worker__Post_Id__74AE54BC");
             });
 
             OnModelCreatingPartial(modelBuilder);
