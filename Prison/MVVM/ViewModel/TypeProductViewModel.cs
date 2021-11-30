@@ -1,12 +1,137 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Prison.Core;
+using Prison.Data;
+using Prison.Model;
+using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Prison.MVVM.ViewModel
 {
-    internal class TypeProductViewModel
+    class TypeProductViewModel : TableViewModel, ICRUD, ITableModel
     {
+        private ObservableCollection<TypeProduct> _typeProducts;
+        public ObservableCollection<TypeProduct> TypeProducts
+        {
+            get => _typeProducts;
+            set
+            {
+                _typeProducts = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private ObservableCollection<TypeProduct> _typeProductsDelete;
+        public ObservableCollection<TypeProduct> TypeProductsDelete
+        {
+            get => _typeProductsDelete;
+            set
+            {
+                _typeProductsDelete = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private TypeProduct _typeProductDeleteSelected;
+        public TypeProduct TypeProductDeleteSelected
+        {
+            get => _typeProductDeleteSelected;
+            set
+            {
+                _typeProductDeleteSelected = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private TypeProduct _typeProductSelected;
+        public TypeProduct TypeProductSelected
+        {
+            get => _typeProductSelected;
+            set
+            {
+                _typeProductSelected = value;
+                TypeProductForEdit = (TypeProduct)_typeProductSelected?.Clone() ?? new TypeProduct();
+                OnPropertyChanged();
+            }
+        }
+        private TypeProduct _typeProductForEdit;
+        public TypeProduct TypeProductForEdit
+        {
+            get => _typeProductForEdit;
+            set
+            {
+                _typeProductForEdit = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool CanDelete => TypeProductSelected != null;
+        public bool CanCreate => Validate();
+        public bool CanUpdate => TypeProductSelected != null;
+        public bool CanClear => TypeProductsDelete.Count > 0;
+        public bool CanRecover => TypeProductDeleteSelected != null;
+
+        public TypeProductViewModel()
+        {
+            TypeProductForEdit = new TypeProduct();
+            TypeProducts = new ObservableCollection<TypeProduct>();
+            TypeProductsDelete = new ObservableCollection<TypeProduct>();
+            Init();
+        }
+        public void Init()
+        {
+            ReadAsync();
+            DeleteCommand = new RelayCommand(o => Drop(), param => CanDelete);
+            CreateCommand = new RelayCommand(o => CreateAsync());
+            UpdateCommand = new RelayCommand(o => UpdateAsync(), param => CanUpdate);
+            RecoverCommand = new RelayCommand(o => Recover(), param => CanRecover);
+            ClearCommand = new RelayCommand(o => DeleteAsync(), param => CanClear);
+        }
+        public void Recover()
+        {
+            TypeProducts.Add(TypeProductDeleteSelected);
+            TypeProductsDelete.Remove(TypeProductDeleteSelected);
+        }
+        public void Drop()
+        {
+            TypeProductsDelete.Add(TypeProductSelected);
+            TypeProducts.Remove(TypeProductSelected);
+        }
+
+        public async void CreateAsync()
+        {
+            if (CanCreate)
+            {
+                TypeProductForEdit.Id = null;
+                await DataSender.PostRequest(nameof(TypeProducts), TypeProductForEdit);
+                ReadAsync();
+            }
+        }
+
+        public async void DeleteAsync()
+        {
+            foreach (var item in TypeProductsDelete)
+            {
+                var s = await DataSender.DeleteRequest(nameof(TypeProducts), item.Id.Value);
+            }
+            TypeProductsDelete.Clear();
+            ReadAsync();
+        }
+
+        public async void ReadAsync()
+        {
+            TypeProducts = await ApiConnector.GetAll<TypeProduct>(nameof(TypeProducts));
+            foreach (var item in TypeProductsDelete)
+                TypeProducts.Remove(TypeProducts.Where(level => level.Id == item.Id).First());
+        }
+
+        public async void UpdateAsync()
+        {
+            await DataSender.PutRequest(nameof(TypeProducts), TypeProductSelected.Id.Value, TypeProductForEdit);
+            ReadAsync();
+        }
+
+        public bool Validate()
+        {
+            return !string.IsNullOrEmpty(TypeProductForEdit.Name);
+        }
     }
 }

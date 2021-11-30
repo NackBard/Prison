@@ -3,10 +3,85 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Prison.MVVM.View"
+             xmlns:vm="clr-namespace:Prison.MVVM.ViewModel"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="610" d:DesignWidth="1210">
+    <UserControl.DataContext>
+        <vm:TypeProductViewModel/>
+    </UserControl.DataContext>
     <Grid>
-            
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="400"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition/>
+                <RowDefinition Height="50"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="Типы продуктов" Grid.Row="0" VerticalAlignment="Center" FontSize="25"/>
+            <DataGrid Grid.Row="1" DataContext="{Binding TypeProducts}"/>
+            <ListView Grid.Row="1" ItemsSource="{Binding TypeProducts}" SelectedItem="{Binding TypeProductSelected}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Наименование" Width="auto" DisplayMemberBinding="{Binding Name}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <TextBlock Text="Корзина" Grid.Row="2" VerticalAlignment="Center" FontSize="25"/>
+            <DataGrid Grid.Row="3" DataContext="{Binding TypeProductsDelete}"/>
+            <ListView Grid.Row="3" ItemsSource="{Binding TypeProductsDelete}" SelectedItem="{Binding TypeProductDeleteSelected}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Наименование" Width="auto" DisplayMemberBinding="{Binding Name}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <StackPanel>
+                <TextBox Text="{Binding TypeProductForEdit.Name, Mode=TwoWay}">
+                    <TextBox.Template>
+                        <ControlTemplate TargetType="{x:Type TextBox}">
+                            <Border CornerRadius="20"
+                            Background="White"
+                            BorderThickness="2"
+                            BorderBrush="#234A56">
+                                <Grid>
+                                    <Rectangle StrokeThickness="1"/>
+                                    <TextBox Margin="1"
+                                     Text="{Binding TypeProductForEdit.Name, Mode=TwoWay}"
+                                     BorderThickness="0"
+                                     Background="Transparent"
+                                     VerticalContentAlignment="Center"
+                                     Padding="10"
+                                     Foreground="#234A56"/>
+                                </Grid>
+                            </Border>
+                        </ControlTemplate>
+                    </TextBox.Template>
+                </TextBox>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Column="0" Content="Добавить" Command="{Binding CreateCommand}"/>
+                    <Button Grid.Column="1" Content="Изменить" Command="{Binding UpdateCommand}"/>
+                    <Button Grid.Column="2" Content="Удалить" Command="{Binding DeleteCommand}"/>
+                </Grid>
+            </StackPanel>
+            <StackPanel Grid.Row="1" VerticalAlignment="Bottom" Orientation="Horizontal">
+                <Button Content="Очистить корзину" Command="{Binding ClearCommand}"/>
+                <Button Content="Восстановить" Command="{Binding RecoverCommand}"/>
+            </StackPanel>
+        </Grid>
     </Grid>
 </UserControl>
