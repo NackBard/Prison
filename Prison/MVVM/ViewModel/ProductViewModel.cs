@@ -120,7 +120,7 @@ namespace Prison.MVVM.ViewModel
         {
             foreach (var item in ProductsDelete)
             {
-                var s = await DataSender.DeleteRequest(nameof(Products), item.Id.Value);
+                await DataSender.DeleteRequest(nameof(Products), item.Id.Value);
             }
             ProductsDelete.Clear();
             ReadAsync();

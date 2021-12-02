@@ -109,9 +109,7 @@ namespace Prison.MVVM.ViewModel
         public async void DeleteAsync()
         {
             foreach (var item in SetsDelete)
-            {
-                var s = await DataSender.DeleteRequest(nameof(Sets), item.Id.Value);
-            }
+                await DataSender.DeleteRequest(nameof(Sets), item.Id.Value);
             SetsDelete.Clear();
             ReadAsync();
         }

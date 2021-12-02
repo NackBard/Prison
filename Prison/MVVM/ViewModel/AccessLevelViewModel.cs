@@ -110,7 +110,7 @@ namespace Prison.MVVM.ViewModel
         {
             foreach (var item in AccessLevelsDelete)
             {
-                var s = await DataSender.DeleteRequest(nameof(AccessLevels), item.Id.Value);
+                await DataSender.DeleteRequest(nameof(AccessLevels), item.Id.Value);
             }
             AccessLevelsDelete.Clear();
             ReadAsync();

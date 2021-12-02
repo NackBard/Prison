@@ -110,7 +110,7 @@ namespace Prison.MVVM.ViewModel
         {
             foreach (var item in AccountingTypesDelete)
             {
-                var s = await DataSender.DeleteRequest(nameof(AccountingTypes), item.Id.Value);
+                await DataSender.DeleteRequest(nameof(AccountingTypes), item.Id.Value);
             }
             AccountingTypesDelete.Clear();
             ReadAsync();
