@@ -21,7 +21,7 @@
                 <RowDefinition Height="50"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <TextBlock Text="Учёт реабилитационных работ" Grid.Row="0" VerticalAlignment="Center" FontSize="25"/>
+            <TextBlock Text="Блюда" Grid.Row="0" VerticalAlignment="Center" FontSize="25"/>
             <DataGrid Grid.Row="1" DataContext="{Binding Dishes}"/>
             <ListView Grid.Row="1" ItemsSource="{Binding Dishes}" SelectedItem="{Binding DishSelected}">
                 <ListView.View>
