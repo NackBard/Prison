@@ -3,10 +3,72 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Prison.MVVM.View"
+             xmlns:vm="clr-namespace:Prison.MVVM.ViewModel"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="610" d:DesignWidth="1210">
+    <UserControl.DataContext>
+        <vm:JournalArrivalAndDepartureViewModel/>
+    </UserControl.DataContext>
     <Grid>
-            
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="400"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition/>
+                <RowDefinition Height="50"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="Журнал прихода и ухода" Grid.Row="0" VerticalAlignment="Center" FontSize="25"/>
+            <DataGrid Grid.Row="1" DataContext="{Binding JournalArrivalAndDepartures}"/>
+            <ListView Grid.Row="1" ItemsSource="{Binding JournalArrivalAndDepartures}" SelectedItem="{Binding JournalArrivalAndDepartureSelected}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Номер работника" Width="auto" DisplayMemberBinding="{Binding WorkerId}"/>
+                        <GridViewColumn Header="Номер типа учёта" Width="auto" DisplayMemberBinding="{Binding AccountingTypeId}"/>
+                        <GridViewColumn Header="Дата записи" Width="auto" DisplayMemberBinding="{Binding Date}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <TextBlock Text="Корзина" Grid.Row="2" VerticalAlignment="Center" FontSize="25"/>
+            <DataGrid Grid.Row="3" DataContext="{Binding JournalArrivalAndDeparturesDelete}"/>
+            <ListView Grid.Row="3" ItemsSource="{Binding JournalArrivalAndDeparturesDelete}" SelectedItem="{Binding JournalArrivalAndDepartureDeleteSelected}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Номер работника" Width="auto" DisplayMemberBinding="{Binding WorkerId}"/>
+                        <GridViewColumn Header="Номер типа учёта" Width="auto" DisplayMemberBinding="{Binding AccountingTypeId}"/>
+                        <GridViewColumn Header="Дата записи" Width="auto" DisplayMemberBinding="{Binding Date}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <StackPanel>
+                <TextBlock Text="Работник"/>
+                <ComboBox ItemsSource="{Binding Workers}" SelectedValuePath="Id" DisplayMemberPath="Id" SelectedValue="{Binding JournalArrivalAndDepartureForEdit.WorkerId}"/>
+                <TextBlock Text="Тип учёта"/>
+                <ComboBox ItemsSource="{Binding AccountingTypes}" SelectedValuePath="Id" DisplayMemberPath="Name" SelectedValue="{Binding JournalArrivalAndDepartureForEdit.AccountingTypeId}"/>
+            </StackPanel>
+            <Grid VerticalAlignment="Bottom">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" Content="Добавить" Command="{Binding CreateCommand}"/>
+                <Button Grid.Column="1" Content="Изменить" Command="{Binding UpdateCommand}"/>
+                <Button Grid.Column="2" Content="Удалить" Command="{Binding DeleteCommand}"/>
+            </Grid>
+            <StackPanel Grid.Row="1" VerticalAlignment="Bottom" Orientation="Horizontal">
+                <Button Content="Очистить корзину" Command="{Binding ClearCommand}"/>
+                <Button Content="Восстановить" Command="{Binding RecoverCommand}"/>
+            </StackPanel>
+        </Grid>
     </Grid>
 </UserControl>
