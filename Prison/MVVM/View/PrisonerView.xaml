@@ -3,10 +3,179 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Prison.MVVM.View"
+             xmlns:vm="clr-namespace:Prison.MVVM.ViewModel"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="610" d:DesignWidth="1210">
+    <UserControl.DataContext>
+        <vm:PrisonerViewModel/>
+    </UserControl.DataContext>
     <Grid>
-            
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="400"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition/>
+                <RowDefinition Height="50"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="Учёт заключённых" Grid.Row="0" VerticalAlignment="Center" FontSize="25"/>
+            <DataGrid Grid.Row="1" DataContext="{Binding Prisoners}"/>
+            <ListView Grid.Row="1" ItemsSource="{Binding Prisoners}" SelectedItem="{Binding PrisonerSelected}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Номер заключённого" Width="auto" DisplayMemberBinding="{Binding Prisoner}"/>
+                        <GridViewColumn Header="Номер набора" Width="auto" DisplayMemberBinding="{Binding SetId}"/>
+                        <GridViewColumn Header="Дата" Width="auto" DisplayMemberBinding="{Binding Date}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <TextBlock Text="Корзина" Grid.Row="2" VerticalAlignment="Center" FontSize="25"/>
+            <DataGrid Grid.Row="3" DataContext="{Binding PrisonersDelete}"/>
+            <ListView Grid.Row="3" ItemsSource="{Binding PrisonersDelete}" SelectedItem="{Binding PrisonerDeleteSelected}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Номер заключённого" Width="auto" DisplayMemberBinding="{Binding Prisoner}"/>
+                        <GridViewColumn Header="Номер набора" Width="auto" DisplayMemberBinding="{Binding SetId}"/>
+                        <GridViewColumn Header="Дата" Width="auto" DisplayMemberBinding="{Binding Date}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="400"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <StackPanel>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="Фамилия" Grid.Column="0" Grid.Row="0"/>
+                    <TextBlock Text="Имя" Grid.Column="1" Grid.Row="0"/>
+                    <TextBlock Text="Отчество" Grid.Column="2" Grid.Row="0"/>
+                    <TextBox Text="{Binding AccessLevelForEdit.Name, Mode=TwoWay}" Grid.Column="0" Grid.Row="1" Height="30">
+                        <TextBox.Template>
+                            <ControlTemplate TargetType="{x:Type TextBox}">
+                                <Border CornerRadius="20"
+                                        Background="White"
+                                        BorderThickness="2"
+                                        BorderBrush="#234A56">
+                                    <Grid>
+                                        <Rectangle StrokeThickness="1"/>
+                                        <TextBox Margin="1"
+                                                 Text="{Binding AccessLevelForEdit.Name, Mode=TwoWay}"
+                                                 BorderThickness="0"
+                                                 Background="Transparent"
+                                                 VerticalContentAlignment="Center"
+                                                 Padding="10"
+                                                 Foreground="#234A56"/>
+                                    </Grid>
+                                </Border>
+                            </ControlTemplate>
+                        </TextBox.Template>
+                    </TextBox>
+                    <TextBox Text="{Binding AccessLevelForEdit.Name, Mode=TwoWay}" Grid.Column="1" Grid.Row="1" Height="30">
+                        <TextBox.Template>
+                            <ControlTemplate TargetType="{x:Type TextBox}">
+                                <Border CornerRadius="20"
+                                        Background="White"
+                                        BorderThickness="2"
+                                        BorderBrush="#234A56">
+                                    <Grid>
+                                        <Rectangle StrokeThickness="1"/>
+                                        <TextBox Margin="1"
+                                                 Text="{Binding AccessLevelForEdit.Name, Mode=TwoWay}"
+                                                 BorderThickness="0"
+                                                 Background="Transparent"
+                                                 VerticalContentAlignment="Center"
+                                                 Padding="10"
+                                                 Foreground="#234A56"/>
+                                    </Grid>
+                                </Border>
+                            </ControlTemplate>
+                        </TextBox.Template>
+                    </TextBox>
+                    <TextBox Text="{Binding AccessLevelForEdit.Name, Mode=TwoWay}" Grid.Column="2" Grid.Row="1" Height="30">
+                        <TextBox.Template>
+                            <ControlTemplate TargetType="{x:Type TextBox}">
+                                <Border CornerRadius="20"
+                                        Background="White"
+                                        BorderThickness="2"
+                                        BorderBrush="#234A56">
+                                    <Grid>
+                                        <Rectangle StrokeThickness="1"/>
+                                        <TextBox Margin="1"
+                                                 Text="{Binding AccessLevelForEdit.Name, Mode=TwoWay}"
+                                                 BorderThickness="0"
+                                                 Background="Transparent"
+                                                 VerticalContentAlignment="Center"
+                                                 Padding="10"
+                                                 Foreground="#234A56"/>
+                                    </Grid>
+                                </Border>
+                            </ControlTemplate>
+                        </TextBox.Template>
+                    </TextBox>
+                </Grid>
+                <TextBlock Text="Дата рождения"/>
+                <DatePicker/>
+                <TextBlock Text="Пол"/>
+                <ComboBox ItemsSource="{Binding Prisoners}" SelectedValuePath="Id" DisplayMemberPath="Id" SelectedValue="{Binding PrisonerForEdit.PrisonerId}"/>
+                <TextBlock Text="Дата заключения"/>
+                <DatePicker/>
+                <TextBlock Text="Обвинение"/>
+                <ComboBox ItemsSource="{Binding Workers}" SelectedValuePath="Id" DisplayMemberPath="Id" SelectedValue="{Binding PrisonerForEdit.WorkerId}"/>
+                <TextBlock Text="Приговор"/>
+                <TextBox Text="{Binding AccessLevelForEdit.Name, Mode=TwoWay}" Height="30">
+                    <TextBox.Template>
+                        <ControlTemplate TargetType="{x:Type TextBox}">
+                            <Border CornerRadius="20"
+                                    Background="White"
+                                    BorderThickness="2"
+                                    BorderBrush="#234A56">
+                                <Grid>
+                                    <Rectangle StrokeThickness="1"/>
+                                    <TextBox Margin="1"
+                                             Text="{Binding AccessLevelForEdit.Name, Mode=TwoWay}"
+                                             BorderThickness="0"
+                                             Background="Transparent"
+                                             VerticalContentAlignment="Center"
+                                             Padding="10"
+                                             Foreground="#234A56"/>
+                                </Grid>
+                            </Border>
+                        </ControlTemplate>
+                    </TextBox.Template>
+                </TextBox>
+                <TextBlock Text="Статус"/>
+                <ComboBox ItemsSource="{Binding BehaviorAssessments}" SelectedValuePath="Id" DisplayMemberPath="Name" SelectedValue="{Binding PrisonerForEdit.AssessmentId}"/>
+                <TextBlock Text="Дополнительная информация"/>
+                <TextBox Height="50" Text="{Binding PrisonerForEdit.Content}"/>
+            </StackPanel>
+            <Grid VerticalAlignment="Bottom">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" Content="Добавить" Command="{Binding CreateCommand}"/>
+                <Button Grid.Column="1" Content="Изменить" Command="{Binding UpdateCommand}"/>
+                <Button Grid.Column="2" Content="Удалить" Command="{Binding DeleteCommand}"/>
+            </Grid>
+            <StackPanel Grid.Row="1" VerticalAlignment="Bottom" Orientation="Horizontal">
+                <Button Content="Очистить корзину" Command="{Binding ClearCommand}"/>
+                <Button Content="Восстановить" Command="{Binding RecoverCommand}"/>
+            </StackPanel>
+        </Grid>
     </Grid>
 </UserControl>
