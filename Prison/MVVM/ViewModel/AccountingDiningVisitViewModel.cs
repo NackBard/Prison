@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using Prison.Core;
 using Prison.Data;
@@ -123,6 +124,7 @@ namespace Prison.MVVM.ViewModel
             if (CanCreate)
             {
                 AccountingDiningVisitForEdit.Id = null;
+                AccountingDiningVisitForEdit.Date = DateTime.Now;
                 await DataSender.PostRequest(nameof(AccountingDiningVisits), AccountingDiningVisitForEdit);
                 ReadAsync();
             }
@@ -147,6 +149,7 @@ namespace Prison.MVVM.ViewModel
 
         public async void UpdateAsync()
         {
+            AccountingDiningVisitForEdit.Date = DateTime.Now;
             await DataSender.PutRequest(nameof(AccountingDiningVisits), AccountingDiningVisitSelected.Id.Value, AccountingDiningVisitForEdit);
             ReadAsync();
         }
