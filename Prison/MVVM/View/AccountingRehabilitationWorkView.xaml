@@ -26,9 +26,9 @@
             <ListView Grid.Row="1" ItemsSource="{Binding AccountingRehabilitationWorks}" SelectedItem="{Binding AccountingRehabilitationWorkSelected}">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Номер заключённого" Width="auto" DisplayMemberBinding="{Binding Prisoner}"/>
-                        <GridViewColumn Header="Номер набора" Width="auto" DisplayMemberBinding="{Binding SetId}"/>
-                        <GridViewColumn Header="Дата" Width="auto" DisplayMemberBinding="{Binding Date}"/>
+                        <GridViewColumn Header="Номер типа работы" Width="auto" DisplayMemberBinding="{Binding WorkId}"/>
+                        <GridViewColumn Header="Номер заключённого" Width="auto" DisplayMemberBinding="{Binding PrisonerId}"/>
+                        <GridViewColumn Header="Зарплата" Width="auto" DisplayMemberBinding="{Binding Salary}"/>
                     </GridView>
                 </ListView.View>
             </ListView>
@@ -37,9 +37,9 @@
             <ListView Grid.Row="3" ItemsSource="{Binding AccountingRehabilitationWorksDelete}" SelectedItem="{Binding AccountingRehabilitationWorkDeleteSelected}">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Номер заключённого" Width="auto" DisplayMemberBinding="{Binding Prisoner}"/>
-                        <GridViewColumn Header="Номер набора" Width="auto" DisplayMemberBinding="{Binding SetId}"/>
-                        <GridViewColumn Header="Дата" Width="auto" DisplayMemberBinding="{Binding Date}"/>
+                        <GridViewColumn Header="Номер типа работы" Width="auto" DisplayMemberBinding="{Binding WorkId}"/>
+                        <GridViewColumn Header="Номер заключённого" Width="auto" DisplayMemberBinding="{Binding PrisonerId}"/>
+                        <GridViewColumn Header="Зарплата" Width="auto" DisplayMemberBinding="{Binding Salary}"/>
                     </GridView>
                 </ListView.View>
             </ListView>
