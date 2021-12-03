@@ -27,7 +27,7 @@
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Наименование" Width="auto" DisplayMemberBinding="{Binding Name}"/>
-                        <GridViewColumn Header="Наименование" Width="auto" DisplayMemberBinding="{Binding ProductTypeId}"/>
+                        <GridViewColumn Header="Номер типа товара" Width="auto" DisplayMemberBinding="{Binding ProductTypeId}"/>
                     </GridView>
                 </ListView.View>
             </ListView>
@@ -37,7 +37,7 @@
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Наименование" Width="auto" DisplayMemberBinding="{Binding Name}"/>
-                        <GridViewColumn Header="Наименование" Width="auto" DisplayMemberBinding="{Binding ProductTypeId}"/>
+                        <GridViewColumn Header="Номер типа товара" Width="auto" DisplayMemberBinding="{Binding ProductTypeId}"/>
                     </GridView>
                 </ListView.View>
             </ListView>

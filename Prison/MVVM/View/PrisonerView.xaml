@@ -26,9 +26,16 @@
             <ListView Grid.Row="1" ItemsSource="{Binding Prisoners}" SelectedItem="{Binding PrisonerSelected}">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Номер заключённого" Width="auto" DisplayMemberBinding="{Binding Prisoner}"/>
-                        <GridViewColumn Header="Номер набора" Width="auto" DisplayMemberBinding="{Binding SetId}"/>
-                        <GridViewColumn Header="Дата" Width="auto" DisplayMemberBinding="{Binding Date}"/>
+                        <GridViewColumn Header="Фамилия" Width="auto" DisplayMemberBinding="{Binding Surname}"/>
+                        <GridViewColumn Header="Имя" Width="auto" DisplayMemberBinding="{Binding Name}"/>
+                        <GridViewColumn Header="Отчество" Width="auto" DisplayMemberBinding="{Binding MiddleName}"/>
+                        <GridViewColumn Header="Дата рождения" Width="auto" DisplayMemberBinding="{Binding DateOfBirthday}"/>
+                        <GridViewColumn Header="Номер гендера" Width="auto" DisplayMemberBinding="{Binding GenderId}"/>
+                        <GridViewColumn Header="Дата заключения" Width="auto" DisplayMemberBinding="{Binding DateOfConclusion}"/>
+                        <GridViewColumn Header="Номер обвинения" Width="auto" DisplayMemberBinding="{Binding ProsecutionId}"/>
+                        <GridViewColumn Header="Приговор" Width="auto" DisplayMemberBinding="{Binding Verdict}"/>
+                        <GridViewColumn Header="Номер статуса" Width="auto" DisplayMemberBinding="{Binding StatusId}"/>
+                        <GridViewColumn Header="Дополнительная информация" Width="auto" DisplayMemberBinding="{Binding AdditionalInformation}"/>
                     </GridView>
                 </ListView.View>
             </ListView>
@@ -37,9 +44,16 @@
             <ListView Grid.Row="3" ItemsSource="{Binding PrisonersDelete}" SelectedItem="{Binding PrisonerDeleteSelected}">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Номер заключённого" Width="auto" DisplayMemberBinding="{Binding Prisoner}"/>
-                        <GridViewColumn Header="Номер набора" Width="auto" DisplayMemberBinding="{Binding SetId}"/>
-                        <GridViewColumn Header="Дата" Width="auto" DisplayMemberBinding="{Binding Date}"/>
+                        <GridViewColumn Header="Фамилия" Width="auto" DisplayMemberBinding="{Binding Surname}"/>
+                        <GridViewColumn Header="Имя" Width="auto" DisplayMemberBinding="{Binding Name}"/>
+                        <GridViewColumn Header="Отчество" Width="auto" DisplayMemberBinding="{Binding MiddleName}"/>
+                        <GridViewColumn Header="Дата рождения" Width="auto" DisplayMemberBinding="{Binding DateOfBirthday}"/>
+                        <GridViewColumn Header="Номер гендера" Width="auto" DisplayMemberBinding="{Binding GenderId}"/>
+                        <GridViewColumn Header="Дата заключения" Width="auto" DisplayMemberBinding="{Binding DateOfConclusion}"/>
+                        <GridViewColumn Header="Номер обвинения" Width="auto" DisplayMemberBinding="{Binding ProsecutionId}"/>
+                        <GridViewColumn Header="Приговор" Width="auto" DisplayMemberBinding="{Binding Verdict}"/>
+                        <GridViewColumn Header="Номер статуса" Width="auto" DisplayMemberBinding="{Binding StatusId}"/>
+                        <GridViewColumn Header="Дополнительная информация" Width="auto" DisplayMemberBinding="{Binding AdditionalInformation}"/>
                     </GridView>
                 </ListView.View>
             </ListView>
