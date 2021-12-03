@@ -21,7 +21,7 @@
                 <RowDefinition Height="50"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <TextBlock Text="Учёт заключённых" Grid.Row="0" VerticalAlignment="Center" FontSize="25"/>
+            <TextBlock Text="Заключённые" Grid.Row="0" VerticalAlignment="Center" FontSize="25"/>
             <DataGrid Grid.Row="1" DataContext="{Binding Prisoners}"/>
             <ListView Grid.Row="1" ItemsSource="{Binding Prisoners}" SelectedItem="{Binding PrisonerSelected}">
                 <ListView.View>
@@ -46,24 +46,12 @@
         </Grid>
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="400"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <StackPanel>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-                    <TextBlock Text="Фамилия" Grid.Column="0" Grid.Row="0"/>
-                    <TextBlock Text="Имя" Grid.Column="1" Grid.Row="0"/>
-                    <TextBlock Text="Отчество" Grid.Column="2" Grid.Row="0"/>
-                    <TextBox Text="{Binding AccessLevelForEdit.Name, Mode=TwoWay}" Grid.Column="0" Grid.Row="1" Height="30">
+
+                <TextBlock Text="Фамилия" />
+                <TextBox Text="{Binding PrisonerForEdit.Surname, Mode=TwoWay}">
                         <TextBox.Template>
                             <ControlTemplate TargetType="{x:Type TextBox}">
                                 <Border CornerRadius="20"
@@ -73,7 +61,7 @@
                                     <Grid>
                                         <Rectangle StrokeThickness="1"/>
                                         <TextBox Margin="1"
-                                                 Text="{Binding AccessLevelForEdit.Name, Mode=TwoWay}"
+                                                 Text="{Binding PrisonerForEdit.Surname, Mode=TwoWay}"
                                                  BorderThickness="0"
                                                  Background="Transparent"
                                                  VerticalContentAlignment="Center"
@@ -84,7 +72,8 @@
                             </ControlTemplate>
                         </TextBox.Template>
                     </TextBox>
-                    <TextBox Text="{Binding AccessLevelForEdit.Name, Mode=TwoWay}" Grid.Column="1" Grid.Row="1" Height="30">
+                <TextBlock Text="Имя"/>
+                <TextBox Text="{Binding PrisonerForEdit.Name, Mode=TwoWay}">
                         <TextBox.Template>
                             <ControlTemplate TargetType="{x:Type TextBox}">
                                 <Border CornerRadius="20"
@@ -94,7 +83,7 @@
                                     <Grid>
                                         <Rectangle StrokeThickness="1"/>
                                         <TextBox Margin="1"
-                                                 Text="{Binding AccessLevelForEdit.Name, Mode=TwoWay}"
+                                                 Text="{Binding PrisonerForEdit.Name, Mode=TwoWay}"
                                                  BorderThickness="0"
                                                  Background="Transparent"
                                                  VerticalContentAlignment="Center"
@@ -105,38 +94,38 @@
                             </ControlTemplate>
                         </TextBox.Template>
                     </TextBox>
-                    <TextBox Text="{Binding AccessLevelForEdit.Name, Mode=TwoWay}" Grid.Column="2" Grid.Row="1" Height="30">
-                        <TextBox.Template>
-                            <ControlTemplate TargetType="{x:Type TextBox}">
-                                <Border CornerRadius="20"
+                <TextBlock Text="Отчество"/>
+                <TextBox Text="{Binding PrisonerForEdit.MiddleName, Mode=TwoWay}">
+                    <TextBox.Template>
+                        <ControlTemplate TargetType="{x:Type TextBox}">
+                            <Border CornerRadius="20"
                                         Background="White"
                                         BorderThickness="2"
                                         BorderBrush="#234A56">
-                                    <Grid>
-                                        <Rectangle StrokeThickness="1"/>
-                                        <TextBox Margin="1"
-                                                 Text="{Binding AccessLevelForEdit.Name, Mode=TwoWay}"
+                                <Grid>
+                                    <Rectangle StrokeThickness="1"/>
+                                    <TextBox Margin="1"
+                                                 Text="{Binding PrisonerForEdit.MiddleName, Mode=TwoWay}"
                                                  BorderThickness="0"
                                                  Background="Transparent"
                                                  VerticalContentAlignment="Center"
                                                  Padding="10"
                                                  Foreground="#234A56"/>
-                                    </Grid>
-                                </Border>
-                            </ControlTemplate>
-                        </TextBox.Template>
-                    </TextBox>
-                </Grid>
+                                </Grid>
+                            </Border>
+                        </ControlTemplate>
+                    </TextBox.Template>
+                </TextBox>
                 <TextBlock Text="Дата рождения"/>
-                <DatePicker/>
+                <DatePicker SelectedDate="{Binding PrisonerForEdit.DateOfBirthday}"/>
                 <TextBlock Text="Пол"/>
-                <ComboBox ItemsSource="{Binding Prisoners}" SelectedValuePath="Id" DisplayMemberPath="Id" SelectedValue="{Binding PrisonerForEdit.PrisonerId}"/>
+                <ComboBox ItemsSource="{Binding Genders}" SelectedValuePath="Id" DisplayMemberPath="Name" SelectedValue="{Binding PrisonerForEdit.GenderId}"/>
                 <TextBlock Text="Дата заключения"/>
-                <DatePicker/>
+                <DatePicker SelectedDate="{Binding PrisonerForEdit.DateOfConclusion}"/>
                 <TextBlock Text="Обвинение"/>
-                <ComboBox ItemsSource="{Binding Workers}" SelectedValuePath="Id" DisplayMemberPath="Id" SelectedValue="{Binding PrisonerForEdit.WorkerId}"/>
+                <ComboBox ItemsSource="{Binding Prosecutions}" SelectedValuePath="Id" DisplayMemberPath="Name" SelectedValue="{Binding PrisonerForEdit.ProsecutionId}"/>
                 <TextBlock Text="Приговор"/>
-                <TextBox Text="{Binding AccessLevelForEdit.Name, Mode=TwoWay}" Height="30">
+                <TextBox Text="{Binding PrisonerForEdit.Verdict, Mode=TwoWay}">
                     <TextBox.Template>
                         <ControlTemplate TargetType="{x:Type TextBox}">
                             <Border CornerRadius="20"
@@ -146,7 +135,7 @@
                                 <Grid>
                                     <Rectangle StrokeThickness="1"/>
                                     <TextBox Margin="1"
-                                             Text="{Binding AccessLevelForEdit.Name, Mode=TwoWay}"
+                                             Text="{Binding PrisonerForEdit.Verdict, Mode=TwoWay}"
                                              BorderThickness="0"
                                              Background="Transparent"
                                              VerticalContentAlignment="Center"
@@ -158,23 +147,35 @@
                     </TextBox.Template>
                 </TextBox>
                 <TextBlock Text="Статус"/>
-                <ComboBox ItemsSource="{Binding BehaviorAssessments}" SelectedValuePath="Id" DisplayMemberPath="Name" SelectedValue="{Binding PrisonerForEdit.AssessmentId}"/>
+                <ComboBox ItemsSource="{Binding Statuses}" SelectedValuePath="Id" DisplayMemberPath="Name" SelectedValue="{Binding PrisonerForEdit.StatusId}"/>
                 <TextBlock Text="Дополнительная информация"/>
-                <TextBox Height="50" Text="{Binding PrisonerForEdit.Content}"/>
+                <TextBox Height="50" Text="{Binding PrisonerForEdit.AdditionalInformation}"/>
             </StackPanel>
             <Grid VerticalAlignment="Bottom">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Button Grid.Column="0" Content="Добавить" Command="{Binding CreateCommand}"/>
-                <Button Grid.Column="1" Content="Изменить" Command="{Binding UpdateCommand}"/>
-                <Button Grid.Column="2" Content="Удалить" Command="{Binding DeleteCommand}"/>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Column="0" Content="Добавить" Command="{Binding CreateCommand}"/>
+                    <Button Grid.Column="1" Content="Изменить" Command="{Binding UpdateCommand}"/>
+                    <Button Grid.Column="2" Content="Удалить" Command="{Binding DeleteCommand}"/>
+                </Grid>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Column="0" Content="Очистить корзину" Command="{Binding ClearCommand}"/>
+                    <Button Grid.Column="1" Content="Восстановить" Command="{Binding RecoverCommand}"/>
+                </Grid>
             </Grid>
             <StackPanel Grid.Row="1" VerticalAlignment="Bottom" Orientation="Horizontal">
-                <Button Content="Очистить корзину" Command="{Binding ClearCommand}"/>
-                <Button Content="Восстановить" Command="{Binding RecoverCommand}"/>
             </StackPanel>
         </Grid>
     </Grid>
