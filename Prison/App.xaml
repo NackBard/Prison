@@ -4,7 +4,7 @@
              xmlns:local="clr-namespace:Prison"
               xmlns:viewModel="clr-namespace:Prison.MVVM.ViewModel"
              xmlns:view="clr-namespace:Prison.MVVM.View"
-             StartupUri="MainWindow.xaml">
+             StartupUri="MVVM/View/AuthorizationWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

@@ -7,7 +7,45 @@ namespace Prison.MVVM.ViewModel
 {
     class MainViewModel : ObservableObject
     {
-        public List<object> views = new List<object>();
+        public object[] views;
+
+        #region NextCommand
+        private RelayCommand _nextViewCommand;
+        public RelayCommand NextViewCommand
+        {
+            get => _nextViewCommand;
+            set
+            {
+                _nextViewCommand = value;
+                OnPropertyChanged(); 
+            }
+        }
+        public void NextView()
+        {
+            currentViewId++;
+            CurrentView = views[currentViewId];
+        }
+        private bool CanNext => views.Length - 1 > currentViewId;
+        #endregion NextCommand
+
+        #region PreviousCommand
+        private RelayCommand _previousViewCommand;
+        public RelayCommand PreviousViewCommand
+        {
+            get => _previousViewCommand;
+            set
+            {
+                _previousViewCommand = value;
+                OnPropertyChanged();
+            }
+        }
+        public void PreviousView()
+        {
+            currentViewId--;
+            CurrentView = views[currentViewId];
+        }
+        private bool CanPrevious => currentViewId > 0;
+        #endregion PreviousCommand
 
         private Visibility _authVisibility;
         public Visibility AuthVisibility
@@ -36,6 +74,8 @@ namespace Prison.MVVM.ViewModel
             }
         }
 
+        private int currentViewId;
+
         private object _currentView;
         public object CurrentView
         {
@@ -48,9 +88,11 @@ namespace Prison.MVVM.ViewModel
         }
         public MainViewModel()
         {
-            views = new List<object>();
-            views.Add(new AccessLevelViewModel());
+            views = new object[] { new AccessLevelViewModel(), new PostViewModel() };
             CurrentView = views.First();
+            NextViewCommand = new RelayCommand(o => NextView(), param => CanNext);
+            PreviousViewCommand = new RelayCommand(o => PreviousView(), param => CanPrevious);
         }
+
     }
 }

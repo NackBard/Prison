@@ -45,14 +45,16 @@
                              Foreground="White"
                              Height="50" Width="50"
                              FontSize="15"
-                             Style="{StaticResource MenuButtonTheme}">
+                             Style="{StaticResource MenuButtonTheme}"
+                             Command="{Binding PreviousViewCommand}">
                         </Button>
                         <Button FontFamily="Segoe MDL2 Assets"
                              Content="&#xe76c;" 
                              Foreground="White"
                              Height="50" Width="50"
                              FontSize="15"
-                             Style="{StaticResource MenuButtonTheme}">
+                             Style="{StaticResource MenuButtonTheme}"
+                             Command="{Binding NextViewCommand}">
                         </Button>
                     </StackPanel>
                     <StackPanel Grid.Row="1" Background="#52616B">
