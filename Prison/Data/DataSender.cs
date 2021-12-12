@@ -42,6 +42,24 @@ namespace Prison.Data
                 return null;
             }
         }
+
+        public static async Task<string> PostRequest(object value)
+        {
+            try
+            {
+                HttpClient client = new HttpClient();
+                StringContent stringContent = new StringContent(JsonConvert.SerializeObject(value), Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync($"{url}/Workers/authorization", stringContent);
+                response.EnsureSuccessStatusCode();
+                return await response.Content.ReadAsStringAsync();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return null;
+            }
+        }
+
         public static async Task<string> PutRequest(string tableName, int id, object value)
         {
             try

@@ -17,7 +17,7 @@ namespace Prison.MVVM.ViewModel
             set
             {
                 _nextViewCommand = value;
-                OnPropertyChanged(); 
+                OnPropertyChanged();
             }
         }
         public void NextView()
@@ -86,9 +86,34 @@ namespace Prison.MVVM.ViewModel
                 OnPropertyChanged();
             }
         }
+
+        private object[] GetAll() => new object[]
+        {
+            new AccessLevelViewModel(),
+            new AccountingDiningVisitViewModel(),
+            new AccountingPrisonerViewModel(),
+            new AccountingRehabilitationWorkViewModel(),
+            new AccountingTypeViewModel(),
+            new BehaviorAssessmentViewModel(),
+            new DishViewModel(),
+            new GenderViewModel(),
+            new JournalArrivalAndDepartureViewModel(),
+            new PostViewModel(),
+            new PrisonerViewModel(),
+            new ProductViewModel(),
+            new ProsecutionViewModel(),
+            new SalesAccountingViewModel(),
+            new SetViewModel(),
+            new StatusViewModel(),
+            new TypeProductViewModel(),
+            new WarehouseViewModel(),
+            new WorkerViewModel(),
+            new WorkerViewModel()
+        };
+
         public MainViewModel()
         {
-            views = new object[] { new AccessLevelViewModel(), new PostViewModel() };
+            views = GetAll(); 
             CurrentView = views.First();
             NextViewCommand = new RelayCommand(o => NextView(), param => CanNext);
             PreviousViewCommand = new RelayCommand(o => PreviousView(), param => CanPrevious);

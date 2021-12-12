@@ -11,5 +11,11 @@ namespace Prison.Data
             string responseBody = await GetRequest(tableName);
             return (ObservableCollection<T>)JsonConvert.DeserializeObject(responseBody, typeof(ObservableCollection<T>));
         }
+
+        public static async Task<T> Authorization<T>(object value)
+        {
+            string responseBody = await PostRequest(value);
+            return (T)JsonConvert.DeserializeObject(responseBody, typeof(T));
+        }
     }
 }

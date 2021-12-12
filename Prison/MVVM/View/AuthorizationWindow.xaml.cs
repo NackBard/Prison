@@ -1,16 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Prison.Data;
+using Prison.Model;
+using Prison.MVVM.Model;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Prison.MVVM.View
 {
@@ -22,6 +14,25 @@ namespace Prison.MVVM.View
         public AuthorizationWindow()
         {
             InitializeComponent();
+        }
+
+        public async void Authorization(object sender, RoutedEventArgs e)
+        {
+            if (Validate())
+                return;
+
+            Worker worker = await ApiConnector.Authorization<Worker>(new Authorization { Login = LoginBox.Text, Password = PasswordBox.Password });
+            if (worker == null || worker?.Login != LoginBox.Text || worker?.Password != PasswordBox.Password)
+                return;
+
+            MainWindow window = new MainWindow();
+            window.Show();
+            Close();
+        }
+
+        private bool Validate()
+        {
+            return string.IsNullOrWhiteSpace(LoginBox.Text) || string.IsNullOrWhiteSpace(PasswordBox.Password);
         }
     }
 }
