@@ -7,7 +7,29 @@ namespace Prison.MVVM.ViewModel
 {
     class MainViewModel : ObservableObject
     {
-        public object[] views;
+        public object[] views = new object[]
+        {
+            new AccessLevelViewModel(),
+            new AccountingDiningVisitViewModel(),
+            new AccountingPrisonerViewModel(),
+            new AccountingRehabilitationWorkViewModel(),
+            new AccountingTypeViewModel(),
+            new BehaviorAssessmentViewModel(),
+            new DishViewModel(),
+            new GenderViewModel(),
+            new JournalArrivalAndDepartureViewModel(),
+            new PostViewModel(),
+            new PrisonerViewModel(),
+            new ProductViewModel(),
+            new ProsecutionViewModel(),
+            new SalesAccountingViewModel(),
+            new SetViewModel(),
+            new StatusViewModel(),
+            new TypeProductViewModel(),
+            new WarehouseViewModel(),
+            new WorkerViewModel(),
+            new WorkerViewModel()
+        };
 
         #region NextCommand
         private RelayCommand _nextViewCommand;
@@ -87,33 +109,8 @@ namespace Prison.MVVM.ViewModel
             }
         }
 
-        private object[] GetAll() => new object[]
-        {
-            new AccessLevelViewModel(),
-            new AccountingDiningVisitViewModel(),
-            new AccountingPrisonerViewModel(),
-            new AccountingRehabilitationWorkViewModel(),
-            new AccountingTypeViewModel(),
-            new BehaviorAssessmentViewModel(),
-            new DishViewModel(),
-            new GenderViewModel(),
-            new JournalArrivalAndDepartureViewModel(),
-            new PostViewModel(),
-            new PrisonerViewModel(),
-            new ProductViewModel(),
-            new ProsecutionViewModel(),
-            new SalesAccountingViewModel(),
-            new SetViewModel(),
-            new StatusViewModel(),
-            new TypeProductViewModel(),
-            new WarehouseViewModel(),
-            new WorkerViewModel(),
-            new WorkerViewModel()
-        };
-
         public MainViewModel()
         {
-            views = GetAll(); 
             CurrentView = views.First();
             NextViewCommand = new RelayCommand(o => NextView(), param => CanNext);
             PreviousViewCommand = new RelayCommand(o => PreviousView(), param => CanPrevious);

@@ -6,9 +6,6 @@
              xmlns:vm="clr-namespace:Prison.MVVM.ViewModel"
              mc:Ignorable="d" 
              d:DesignHeight="610" d:DesignWidth="1210">
-    <UserControl.DataContext>
-        <vm:WorkViewModel/>
-    </UserControl.DataContext>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
