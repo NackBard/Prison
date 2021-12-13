@@ -90,11 +90,16 @@ namespace Prison.MVVM.ViewModel
         }
         public void Recover()
         {
+            AccessLevelSelected = (AccessLevel)AccessLevelDeleteSelected.Clone();
+            AccessLevelForEdit.IsDeleted = false;
+            UpdateAsync();
             AccessLevels.Add(AccessLevelDeleteSelected);
             AccessLevelsDelete.Remove(AccessLevelDeleteSelected);
         }
         public void Drop()
         {
+            AccessLevelForEdit.IsDeleted = true;
+            UpdateAsync();
             AccessLevelsDelete.Add(AccessLevelSelected);
             AccessLevels.Remove(AccessLevelSelected);
         }
@@ -121,33 +126,17 @@ namespace Prison.MVVM.ViewModel
 
         public async void ReadAsync()
         {
-            AccessLevels = await ApiConnector.GetAll<AccessLevel>(nameof(AccessLevels));
-            AccessLevels = Sort(AccessLevels, nameof(AccessLevel.Name));
-              foreach (var item in AccessLevelsDelete)
-                AccessLevels.Remove(AccessLevels.Where(level => level.Id == item.Id).First());
+            AccessLevelsDelete = new ObservableCollection<AccessLevel>();
+            AccessLevels = new ObservableCollection<AccessLevel>();
+            var all = await ApiConnector.GetAll<AccessLevel>(nameof(AccessLevels));
+            foreach (var item in all)
+            {
+                if (item.IsDeleted)
+                    AccessLevelsDelete.Add(item);
+                else
+                    AccessLevels.Add(item);
+            }
         }
-
-        public ObservableCollection<T> Sort<T>(ObservableCollection<T> sorter, string propertyName)
-        {
-            var s = sorter.OrderBy(a => a.GetType().GetProperty(propertyName).GetValue(a,null));
-            sorter = new ObservableCollection<T>();
-            foreach (var item in s)
-                sorter.Add(item);
-            return sorter;
-        }
-
-        //public ObservableCollection<T> Filter<T>(ObservableCollection<T> sorter, string propertyName, object value)
-        //{
-        //    var d = from sort in sorter where sort.GetType().GetProperty(propertyName).GetValue(sort) == value select sort;
-        //    var s = sorter.Where(a =>
-        //    a.GetType().GetProperty(propertyName).GetValue(a) == value &&
-        //    value == value
-        //    );
-        //    sorter = new ObservableCollection<T>();
-        //    foreach (var item in s)
-        //        sorter.Add(item);
-        //    return sorter;
-        //}
 
         public async void UpdateAsync()
         {
