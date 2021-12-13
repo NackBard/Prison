@@ -10,6 +10,7 @@ namespace Prison.Model
         public int? SetId { get; set; }
         public int? Prisoner { get; set; }
         public DateTime Date { get; set; }
+        public bool IsDeleted { get; set; }
 
         public object Clone()
         {

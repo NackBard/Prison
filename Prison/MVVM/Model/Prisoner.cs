@@ -18,6 +18,8 @@ namespace Prison.Model
         public string Verdict { get; set; }
         public int? StatusId { get; set; }
         public string AdditionalInformation { get; set; }
+        public bool IsDeleted { get; set; }
+
         public object Clone()
         {
             return MemberwiseClone();

@@ -123,8 +123,6 @@ namespace Prison.MVVM.ViewModel
         {
             AccessLevels = await ApiConnector.GetAll<AccessLevel>(nameof(AccessLevels));
             AccessLevels = Sort(AccessLevels, nameof(AccessLevel.Name));
-            var s = AccessLevels.Where(s => s.Name == "Антон");
-            AccessLevels = Filter(AccessLevels, nameof(AccessLevel.Name), "Антон");
               foreach (var item in AccessLevelsDelete)
                 AccessLevels.Remove(AccessLevels.Where(level => level.Id == item.Id).First());
         }
@@ -138,15 +136,18 @@ namespace Prison.MVVM.ViewModel
             return sorter;
         }
 
-        public ObservableCollection<T> Filter<T>(ObservableCollection<T> sorter, string propertyName, object value)
-        {
-            var s = sorter.Where(a =>
-            a.GetType().GetProperty(propertyName).GetValue(a, null) == value);
-            sorter = new ObservableCollection<T>();
-            foreach (var item in s)
-                sorter.Add(item);
-            return sorter;
-        }
+        //public ObservableCollection<T> Filter<T>(ObservableCollection<T> sorter, string propertyName, object value)
+        //{
+        //    var d = from sort in sorter where sort.GetType().GetProperty(propertyName).GetValue(sort) == value select sort;
+        //    var s = sorter.Where(a =>
+        //    a.GetType().GetProperty(propertyName).GetValue(a) == value &&
+        //    value == value
+        //    );
+        //    sorter = new ObservableCollection<T>();
+        //    foreach (var item in s)
+        //        sorter.Add(item);
+        //    return sorter;
+        //}
 
         public async void UpdateAsync()
         {

@@ -11,6 +11,8 @@ namespace Prison.Model
         public string Name { get; set; }
         public int? LevelId { get; set; }
         public double Salary { get; set; }
+        public bool IsDeleted { get; set; }
+
         public object Clone()
         {
             return MemberwiseClone();

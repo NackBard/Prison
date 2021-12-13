@@ -13,6 +13,8 @@ namespace Prison.Model
         public int? AssessmentId { get; set; }
         public string Content { get; set; }
         public DateTime DateOfEntry { get; set; }
+        public bool IsDeleted { get; set; }
+
         public object Clone()
         {
             return MemberwiseClone();

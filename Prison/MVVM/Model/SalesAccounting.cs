@@ -12,6 +12,8 @@ namespace Prison.Model
         public int? PrisonerId { get; set; }
         public int Count { get; set; }
         public double Total { get; set; }
+        public bool IsDeleted { get; set; }
+
         public object Clone()
         {
             return MemberwiseClone();

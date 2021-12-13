@@ -17,6 +17,8 @@ namespace Prison.Model
         public string AdditionalInformation { get; set; }
         public string Login { get; set; }
         public string Password { get; set; }
+        public bool IsDeleted { get; set; }
+
         public object Clone()
         {
             return MemberwiseClone();

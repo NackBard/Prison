@@ -11,6 +11,8 @@ namespace Prison.Model
         public int? WorkerId { get; set; }
         public int? AccountingTypeId { get; set; }
         public DateTime Date { get; set; }
+        public bool IsDeleted { get; set; }
+
         public object Clone()
         {
             return MemberwiseClone();
