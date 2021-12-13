@@ -1,8 +1,11 @@
-﻿using Prison.Core;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Prison.Core;
 using Prison.Data;
 using Prison.Model;
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reflection;
 
 namespace Prison.MVVM.ViewModel
 {
@@ -119,8 +122,30 @@ namespace Prison.MVVM.ViewModel
         public async void ReadAsync()
         {
             AccessLevels = await ApiConnector.GetAll<AccessLevel>(nameof(AccessLevels));
-            foreach (var item in AccessLevelsDelete)
+            AccessLevels = Sort(AccessLevels, nameof(AccessLevel.Name));
+            var s = AccessLevels.Where(s => s.Name == "Антон");
+            AccessLevels = Filter(AccessLevels, nameof(AccessLevel.Name), "Антон");
+              foreach (var item in AccessLevelsDelete)
                 AccessLevels.Remove(AccessLevels.Where(level => level.Id == item.Id).First());
+        }
+
+        public ObservableCollection<T> Sort<T>(ObservableCollection<T> sorter, string propertyName)
+        {
+            var s = sorter.OrderBy(a => a.GetType().GetProperty(propertyName).GetValue(a,null));
+            sorter = new ObservableCollection<T>();
+            foreach (var item in s)
+                sorter.Add(item);
+            return sorter;
+        }
+
+        public ObservableCollection<T> Filter<T>(ObservableCollection<T> sorter, string propertyName, object value)
+        {
+            var s = sorter.Where(a =>
+            a.GetType().GetProperty(propertyName).GetValue(a, null) == value);
+            sorter = new ObservableCollection<T>();
+            foreach (var item in s)
+                sorter.Add(item);
+            return sorter;
         }
 
         public async void UpdateAsync()
