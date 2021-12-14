@@ -108,7 +108,7 @@ namespace Prison.MVVM.ViewModel
             ReadAsync();
             DeleteCommand = new RelayCommand(o => Drop(), param => CanDelete);
             CreateCommand = new RelayCommand(o => CreateAsync());
-            UpdateCommand = new RelayCommand(o => UpdateAsync(), param => CanUpdate);
+            UpdateCommand = new RelayCommand(o => UpdateWithReadAsync(), param => CanUpdate);
             RecoverCommand = new RelayCommand(o => Recover(), param => CanRecover);
             ClearCommand = new RelayCommand(o => DeleteAsync(), param => CanClear);
         }
@@ -157,7 +157,6 @@ namespace Prison.MVVM.ViewModel
             SalesAccountingForEdit.Total = ProductCalculate();
             SalesAccountingForEdit.Date = DateTime.Now;
             await DataSender.PutRequest(nameof(SalesAccountings), SalesAccountingSelected.Id.Value, SalesAccountingForEdit);
-            ReadAsync();
         }
 
         public bool Validate()
@@ -166,5 +165,13 @@ namespace Prison.MVVM.ViewModel
         }
 
         public double ProductCalculate() => SalesAccountingForEdit.Count * 10;
+
+        public async void UpdateWithReadAsync()
+        {
+            SalesAccountingForEdit.Total = ProductCalculate();
+            SalesAccountingForEdit.Date = DateTime.Now;
+            await DataSender.PutRequest(nameof(SalesAccountings), SalesAccountingSelected.Id.Value, SalesAccountingForEdit);
+            ReadAsync();
+        }
     }
 }

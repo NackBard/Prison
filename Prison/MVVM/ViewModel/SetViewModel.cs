@@ -124,12 +124,17 @@ namespace Prison.MVVM.ViewModel
         public async void UpdateAsync()
         {
             await DataSender.PutRequest(nameof(Sets), SetSelected.Id.Value, SetForEdit);
-            ReadAsync();
         }
 
         public bool Validate()
         {
             return !string.IsNullOrEmpty(SetForEdit.Name);
+        }
+
+        public async void UpdateWithReadAsync()
+        {
+            await DataSender.PutRequest(nameof(Sets), SetSelected.Id.Value, SetForEdit);
+            ReadAsync();
         }
     }
 }

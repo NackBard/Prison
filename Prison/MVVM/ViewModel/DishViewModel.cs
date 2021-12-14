@@ -136,12 +136,17 @@ namespace Prison.MVVM.ViewModel
         public async void UpdateAsync()
         {
             await DataSender.PutRequest(nameof(Dishes), DishSelected.Id.Value, DishForEdit);
-            ReadAsync();
         }
 
         public bool Validate()
         {
             return false;
+        }
+
+        public async void UpdateWithReadAsync()
+        {
+            await DataSender.PutRequest(nameof(Dishes), DishSelected.Id.Value, DishForEdit);
+            ReadAsync();
         }
     }
 }
