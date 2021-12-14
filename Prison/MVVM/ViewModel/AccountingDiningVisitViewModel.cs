@@ -151,12 +151,18 @@ namespace Prison.MVVM.ViewModel
         {
             AccountingDiningVisitForEdit.Date = DateTime.Now;
             await DataSender.PutRequest(nameof(AccountingDiningVisits), AccountingDiningVisitSelected.Id.Value, AccountingDiningVisitForEdit);
-            ReadAsync();
         }
 
         public bool Validate()
         {
             return false;
+        }
+
+        public async void UpdateWithReadAsync()
+        {
+            AccountingDiningVisitForEdit.Date = DateTime.Now;
+            await DataSender.PutRequest(nameof(AccountingDiningVisits), AccountingDiningVisitSelected.Id.Value, AccountingDiningVisitForEdit);
+            ReadAsync();
         }
     }
 }

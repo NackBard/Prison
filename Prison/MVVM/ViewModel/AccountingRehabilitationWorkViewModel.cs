@@ -103,7 +103,7 @@ namespace Prison.MVVM.ViewModel
             ReadAsync();
             DeleteCommand = new RelayCommand(o => Drop(), param => CanDelete);
             CreateCommand = new RelayCommand(o => CreateAsync());
-            UpdateCommand = new RelayCommand(o => UpdateAsync(), param => CanUpdate);
+            UpdateCommand = new RelayCommand(o => UpdateWithReadAsync(), param => CanUpdate);
             RecoverCommand = new RelayCommand(o => Recover(), param => CanRecover);
             ClearCommand = new RelayCommand(o => DeleteAsync(), param => CanClear);
         }
@@ -148,12 +148,17 @@ namespace Prison.MVVM.ViewModel
         public async void UpdateAsync()
         {
             await DataSender.PutRequest(nameof(AccountingRehabilitationWorks), AccountingRehabilitationWorkSelected.Id.Value, AccountingRehabilitationWorkForEdit);
-            ReadAsync();
         }
 
         public bool Validate()
         {
             return false;
+        }
+
+        public async void UpdateWithReadAsync()
+        {
+            await DataSender.PutRequest(nameof(AccountingRehabilitationWorks), AccountingRehabilitationWorkSelected.Id.Value, AccountingRehabilitationWorkForEdit);
+            ReadAsync();
         }
     }
 }

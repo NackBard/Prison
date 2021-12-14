@@ -8,6 +8,7 @@
         bool CanClear { get; }
         void CreateAsync();
         void ReadAsync();
+        void UpdateWithReadAsync();
         void UpdateAsync();
         void DeleteAsync();
     }

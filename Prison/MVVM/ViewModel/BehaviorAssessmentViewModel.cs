@@ -133,6 +133,11 @@ namespace Prison.MVVM.ViewModel
         {
             return !string.IsNullOrEmpty(BehaviorAssessmentForEdit.Name);
         }
+
+        public void UpdateWithReadAsync()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
 
