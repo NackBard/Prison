@@ -153,7 +153,7 @@ namespace Prison.MVVM.ViewModel
 
         public bool Validate()
         {
-            return false;
+            return !string.IsNullOrWhiteSpace(DishForEdit.Name) && DishForEdit.SetId != null;
         }
 
         public async void UpdateWithReadAsync()

@@ -155,7 +155,7 @@ namespace Prison.MVVM.ViewModel
 
         public bool Validate()
         {
-            return false;
+            return WarehouseForEdit.Count > 0 && WarehouseForEdit.ProductId != null; 
         }
 
         public async void UpdateWithReadAsync()

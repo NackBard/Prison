@@ -174,7 +174,8 @@ namespace Prison.MVVM.ViewModel
 
         public bool Validate()
         {
-            return false;
+            return SalesAccountingForEdit.Count > 0 && SalesAccountingForEdit.PrisonerId != null &&
+                SalesAccountingForEdit.ProductId != null && SalesAccountingForEdit.Total >= 0;
         }
 
         public double ProductCalculate() => SalesAccountingForEdit.Count * 10;

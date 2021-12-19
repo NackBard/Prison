@@ -168,7 +168,7 @@ namespace Prison.MVVM.ViewModel
 
         public bool Validate()
         {
-            return false;
+            return JournalArrivalAndDepartureForEdit.WorkerId != null && JournalArrivalAndDepartureForEdit.AccountingTypeId != null;
         }
 
         public async void UpdateWithReadAsync()

@@ -178,7 +178,10 @@ namespace Prison.MVVM.ViewModel
 
         public bool Validate()
         {
-            return false;
+            return !string.IsNullOrWhiteSpace(PrisonerForEdit.Verdict) && !string.IsNullOrWhiteSpace(PrisonerForEdit.Surname) && !string.IsNullOrWhiteSpace(PrisonerForEdit.Name) &&
+                PrisonerForEdit.StatusId != null && PrisonerForEdit.ProsecutionId != null && PrisonerForEdit.GenderId != null &&
+                PrisonerForEdit.DateOfBirthday.Year <= DateTime.Now.Year - 18 && PrisonerForEdit.DateOfBirthday.Year >= DateTime.Now.Year - 100 &&
+                PrisonerForEdit.DateOfConclusion.Year >= DateTime.Now.Year - 100;
         }
 
         public async void UpdateWithReadAsync()

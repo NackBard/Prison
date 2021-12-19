@@ -165,7 +165,7 @@ namespace Prison.MVVM.ViewModel
 
         public bool Validate()
         {
-            return false;
+            return AccountingRehabilitationWorkForEdit.PrisonerId !=null && AccountingRehabilitationWorkForEdit.Salary >= 0 && AccountingRehabilitationWorkForEdit.WorkId !=null;
         }
 
         public async void UpdateWithReadAsync()

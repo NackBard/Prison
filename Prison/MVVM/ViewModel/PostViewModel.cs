@@ -153,7 +153,7 @@ namespace Prison.MVVM.ViewModel
 
         public bool Validate()
         {
-            return false;
+            return PostForEdit.LevelId != null && PostForEdit.Salary >= 0 && !string.IsNullOrWhiteSpace(PostForEdit.Name);
         }
 
         public async void UpdateWithReadAsync()

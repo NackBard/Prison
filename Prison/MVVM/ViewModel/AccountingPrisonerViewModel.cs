@@ -180,7 +180,8 @@ namespace Prison.MVVM.ViewModel
 
         public bool Validate()
         {
-            return false;
+            return AccountingPrisonerForEdit.PrisonerId !=null && AccountingPrisonerForEdit.WorkerId !=null &&
+                AccountingPrisonerForEdit.AssessmentId !=null && !string.IsNullOrWhiteSpace(AccountingPrisonerForEdit.Content);
         }
 
         public async void UpdateWithReadAsync()

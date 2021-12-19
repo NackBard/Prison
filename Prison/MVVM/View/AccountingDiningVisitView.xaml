@@ -56,10 +56,10 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <StackPanel>
-                <TextBlock Text="Заключённый"/>
-                <ComboBox ItemsSource="{Binding Prisoners}" SelectedValuePath="Id" DisplayMemberPath="Id" SelectedValue="{Binding AccountingDiningVisitForEdit.Prisoner}"/>
-                <TextBlock Text="Обеденный набор"/>
-                <ComboBox ItemsSource="{Binding Sets}" SelectedValuePath="Id" DisplayMemberPath="Name" SelectedValue="{Binding AccountingDiningVisitForEdit.SetId}"/>
+                <TextBlock Text="Заключённый" FontSize="20"/>
+                <ComboBox ItemsSource="{Binding Prisoners}" SelectedValuePath="Id" DisplayMemberPath="Id" SelectedValue="{Binding AccountingDiningVisitForEdit.Prisoner}" Height="25" Margin="5"/>
+                <TextBlock Text="Обеденный набор" FontSize="20"/>
+                <ComboBox ItemsSource="{Binding Sets}" SelectedValuePath="Id" DisplayMemberPath="Name" SelectedValue="{Binding AccountingDiningVisitForEdit.SetId}" Height="25" Margin="5"/>
             </StackPanel>
             <Grid VerticalAlignment="Bottom">
                 <Grid.RowDefinitions>

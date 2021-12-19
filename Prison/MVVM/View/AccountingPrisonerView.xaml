@@ -51,18 +51,18 @@
                 </ListBox.ContextMenu>
             </ListView>
         </Grid>
-        <Grid Grid.Column="1">
+        <Grid Grid.Column="1" Margin="5">
             <Grid.RowDefinitions>
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <StackPanel>
-                <TextBlock Text="Заключённый"/>
-                <ComboBox ItemsSource="{Binding Prisoners}" SelectedValuePath="Id" DisplayMemberPath="Id" SelectedValue="{Binding AccountingPrisonerForEdit.PrisonerId}"/>
-                <TextBlock Text="Работник"/>
-                <ComboBox ItemsSource="{Binding Workers}" SelectedValuePath="Id" DisplayMemberPath="Id" SelectedValue="{Binding AccountingPrisonerForEdit.WorkerId}"/>
-                <TextBlock Text="Оценка"/>
-                <ComboBox ItemsSource="{Binding BehaviorAssessments}" SelectedValuePath="Id" DisplayMemberPath="Name" SelectedValue="{Binding AccountingPrisonerForEdit.AssessmentId}"/>
-                <TextBlock Text="Содержание"/>
+                <TextBlock Text="Заключённый" FontSize="20"/>
+                <ComboBox ItemsSource="{Binding Prisoners}" SelectedValuePath="Id" DisplayMemberPath="Id" SelectedValue="{Binding AccountingPrisonerForEdit.PrisonerId}" Height="25"/>
+                <TextBlock Text="Работник" FontSize="20"/>
+                <ComboBox ItemsSource="{Binding Workers}" SelectedValuePath="Id" DisplayMemberPath="Id" SelectedValue="{Binding AccountingPrisonerForEdit.WorkerId}" Height="25"/>
+                <TextBlock Text="Оценка" FontSize="20"/>
+                <ComboBox ItemsSource="{Binding BehaviorAssessments}" SelectedValuePath="Id" DisplayMemberPath="Name" SelectedValue="{Binding AccountingPrisonerForEdit.AssessmentId}" Height="25"/>
+                <TextBlock Text="Содержание" FontSize="20"/>
                 <TextBox Height="100" Text="{Binding AccountingPrisonerForEdit.Content}"/>
             </StackPanel>
             <Grid VerticalAlignment="Bottom">

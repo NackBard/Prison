@@ -1,6 +1,7 @@
 ﻿using Prison.Core;
 using Prison.Data;
 using Prison.Model;
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -165,7 +166,9 @@ namespace Prison.MVVM.ViewModel
 
         public bool Validate()
         {
-            return true;
+            return WorkerForEdit.DateOfBirth.Year <= DateTime.Now.Year - 18 && WorkerForEdit.DateOfBirth.Year >= DateTime.Now.Year - 100 &&
+                WorkerForEdit.GenderId != null && WorkerForEdit.PostId != null && !string.IsNullOrWhiteSpace(WorkerForEdit.Surname) &&
+                !string.IsNullOrWhiteSpace(WorkerForEdit.Password) && !string.IsNullOrWhiteSpace(WorkerForEdit.Name) && !string.IsNullOrWhiteSpace(WorkerForEdit.Login);
         }
 
         public async void UpdateWithReadAsync()
