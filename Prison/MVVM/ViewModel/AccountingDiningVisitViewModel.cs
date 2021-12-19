@@ -107,6 +107,7 @@ namespace Prison.MVVM.ViewModel
             UpdateCommand = new RelayCommand(o => UpdateAsync(), param => CanUpdate);
             RecoverCommand = new RelayCommand(o => Recover(), param => CanRecover);
             ClearCommand = new RelayCommand(o => DeleteAsync(), param => CanClear);
+            ExportCommand = new RelayCommand(o => Export());
         }
         public void Recover()
         {
@@ -163,6 +164,11 @@ namespace Prison.MVVM.ViewModel
             AccountingDiningVisitForEdit.Date = DateTime.Now;
             await DataSender.PutRequest(nameof(AccountingDiningVisits), AccountingDiningVisitSelected.Id.Value, AccountingDiningVisitForEdit);
             ReadAsync();
+        }
+
+        public void Export()
+        {
+            TableHelper.Export(AccountingDiningVisits, nameof(AccountingDiningVisits));
         }
     }
 }

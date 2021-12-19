@@ -1,12 +1,7 @@
-﻿using Microsoft.WindowsAPICodePack.Dialogs;
-using Newtonsoft.Json;
-using Prison.Core;
+﻿using Prison.Core;
 using Prison.Data;
 using Prison.Model;
-using System;
 using System.Collections.ObjectModel;
-using System.IO;
-using System.Text;
 
 namespace Prison.MVVM.ViewModel
 {

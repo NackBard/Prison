@@ -5,5 +5,6 @@
         bool CanRecover { get; }
         void Recover();
         void Drop();
+        void Export();
     }
 }

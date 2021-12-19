@@ -84,6 +84,7 @@ namespace Prison.MVVM.ViewModel
             UpdateCommand = new RelayCommand(o => UpdateWithReadAsync(), param => CanUpdate);
             RecoverCommand = new RelayCommand(o => Recover(), param => CanRecover);
             ClearCommand = new RelayCommand(o => DeleteAsync(), param => CanClear);
+            ExportCommand = new RelayCommand(o => Export());
         }
         public void Recover()
         {
@@ -137,6 +138,11 @@ namespace Prison.MVVM.ViewModel
         {
             await DataSender.PutRequest(nameof(TypeProducts), TypeProductSelected.Id.Value, TypeProductForEdit);
             ReadAsync();
+        }
+
+        public void Export()
+        {
+            TableHelper.Export(TypeProducts, nameof(TypeProducts));
         }
     }
 }
