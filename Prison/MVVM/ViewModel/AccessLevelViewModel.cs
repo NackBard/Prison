@@ -1,16 +1,18 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+﻿using Microsoft.WindowsAPICodePack.Dialogs;
+using Newtonsoft.Json;
 using Prison.Core;
 using Prison.Data;
 using Prison.Model;
 using System;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Reflection;
+using System.IO;
+using System.Text;
 
 namespace Prison.MVVM.ViewModel
 {
     class AccessLevelViewModel : TableViewModel, ICRUD, ITableModel
     {
+
         private ObservableCollection<AccessLevel> _accessLevels;
         public ObservableCollection<AccessLevel> AccessLevels
         {
@@ -55,6 +57,7 @@ namespace Prison.MVVM.ViewModel
                 OnPropertyChanged();
             }
         }
+
         private AccessLevel _accessLevelForEdit;
         public AccessLevel AccessLevelForEdit
         {
@@ -79,6 +82,7 @@ namespace Prison.MVVM.ViewModel
             AccessLevelsDelete = new ObservableCollection<AccessLevel>();
             Init();
         }
+
         public void Init()
         {
             ReadAsync();
@@ -87,7 +91,9 @@ namespace Prison.MVVM.ViewModel
             UpdateCommand = new RelayCommand(o => UpdateWithReadAsync(), param => CanUpdate);
             RecoverCommand = new RelayCommand(o => Recover(), param => CanRecover);
             ClearCommand = new RelayCommand(o => DeleteAsync(), param => CanClear);
+            ExportCommand = new RelayCommand(o => Export());
         }
+
         public void Recover()
         {
             AccessLevelSelected = (AccessLevel)AccessLevelDeleteSelected.Clone();
@@ -96,6 +102,7 @@ namespace Prison.MVVM.ViewModel
             AccessLevels.Add(AccessLevelDeleteSelected);
             AccessLevelsDelete.Remove(AccessLevelDeleteSelected);
         }
+
         public void Drop()
         {
             AccessLevelForEdit.IsDeleted = true;
@@ -152,6 +159,11 @@ namespace Prison.MVVM.ViewModel
         {
             await DataSender.PutRequest(nameof(AccessLevels), AccessLevelSelected.Id.Value, AccessLevelForEdit);
             ReadAsync();
+        }
+
+        public void Export()
+        {
+            TableHelper.Export(AccessLevels, nameof(AccessLevels));
         }
     }
 }

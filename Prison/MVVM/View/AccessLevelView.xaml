@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:vm="clr-namespace:Prison.MVVM.ViewModel"
              mc:Ignorable="d" 
              d:DesignHeight="610" d:DesignWidth="1210">
     <Grid>
@@ -26,6 +25,11 @@
                         <GridViewColumn Header="Наименование" Width="auto" DisplayMemberBinding="{Binding Name}"/>
                     </GridView>
                 </ListView.View>
+                <ListBox.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Удалить" Command="{Binding DeleteCommand}"></MenuItem>
+                    </ContextMenu>
+                </ListBox.ContextMenu>
             </ListView>
             <TextBlock Text="Корзина" Grid.Row="2" VerticalAlignment="Center" FontSize="25"/>
             <DataGrid Grid.Row="3" DataContext="{Binding AccessLevelsDelete}"/>
@@ -35,15 +39,20 @@
                         <GridViewColumn Header="Наименование" Width="auto" DisplayMemberBinding="{Binding Name}"/>
                     </GridView>
                 </ListView.View>
+                <ListBox.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Восстановить" Command="{Binding RecoverCommand}"></MenuItem>
+                    </ContextMenu>
+                </ListBox.ContextMenu>
             </ListView>
         </Grid>
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition/>
-                <RowDefinition/>
             </Grid.RowDefinitions>
             <StackPanel>
-                <TextBox Text="{Binding AccessLevelForEdit.Name, Mode=TwoWay}">
+                <TextBlock Text="Наименование" FontSize="20" Margin="5"/>
+                <TextBox Text="{Binding AccessLevelForEdit.Name, Mode=TwoWay}" Margin="5">
                     <TextBox.Template>
                         <ControlTemplate TargetType="{x:Type TextBox}">
                             <Border CornerRadius="20"
@@ -64,21 +73,40 @@
                         </ControlTemplate>
                     </TextBox.Template>
                 </TextBox>
+                <Grid >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                </Grid>
+            </StackPanel>
+            <Grid VerticalAlignment="Bottom">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <Button Grid.Column="0" Content="Добавить" Command="{Binding CreateCommand}"/>
-                    <Button Grid.Column="1" Content="Изменить" Command="{Binding UpdateCommand}"/>
-                    <Button Grid.Column="2" Content="Удалить" Command="{Binding DeleteCommand}"/>
+                    <Button Grid.Column="0" Content="Добавить" Command="{Binding CreateCommand}" Margin="2" Height="25"/>
+                    <Button Grid.Column="1" Content="Изменить" Command="{Binding UpdateCommand}" Margin="2" Height="25"/>
+                    <Button Grid.Column="2" Content="Удалить" Command="{Binding DeleteCommand}" Margin="2" Height="25"/>
                 </Grid>
-            </StackPanel>
-            <StackPanel Grid.Row="1" VerticalAlignment="Bottom" Orientation="Horizontal">
-                <Button Content="Очистить корзину" Command="{Binding ClearCommand}"/>
-                <Button Content="Восстановить" Command="{Binding RecoverCommand}"/>
-            </StackPanel>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Column="0" Content="Очистить корзину" Command="{Binding ClearCommand}" Margin="2" Height="25"/>
+                    <Button Grid.Column="1" Content="Восстановить" Command="{Binding RecoverCommand}" Margin="2" Height="25"/>
+                </Grid>
+                <Button Height="25" Grid.Row="3" Content="Экспортировать" Command="{Binding ExportCommand}" Margin="2"/>
+            </Grid>
         </Grid>
     </Grid>
 </UserControl>

@@ -54,5 +54,15 @@ namespace Prison.MVVM.ViewModel
                 OnPropertyChanged();
             }
         }
+        private RelayCommand _exportCommand;
+        public RelayCommand ExportCommand
+        {
+            get => _exportCommand;
+            set
+            {
+                _exportCommand = value;
+                OnPropertyChanged();
+            }
+        }
     }
 }

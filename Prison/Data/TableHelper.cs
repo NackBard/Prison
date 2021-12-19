@@ -2,14 +2,17 @@
 
 using CsvHelper;
 using CsvHelper.Configuration;
+using Microsoft.WindowsAPICodePack.Dialogs;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Dynamic;
 using System.IO;
 using System.Linq;
+using System.Text;
 
 namespace Prison.Data
 {
@@ -24,7 +27,7 @@ namespace Prison.Data
             return sorter;
         }
 
-        public static string jsonToCSV(string jsonContent)
+        private static string jsonToCSV(string jsonContent)
         {
             var expandos = JsonConvert.DeserializeObject<ExpandoObject[]>(jsonContent);
             CsvConfiguration configuration = new CsvConfiguration(System.Globalization.CultureInfo.CurrentCulture);
@@ -39,17 +42,18 @@ namespace Prison.Data
             }
         }
 
-        public static IEnumerable<JObject> CsvToJson(IEnumerable<string> csvLines)
+        public static void Export<T>(ObservableCollection<T> table, string tableName)
         {
-            var csvLinesList = csvLines.ToList();
+            var dlg = new CommonOpenFileDialog();
+            dlg.Title = "Выбор папки";
+            dlg.IsFolderPicker = true;
 
-            var header = csvLinesList[0].Split(',');
-            for (int i = 1; i < csvLinesList.Count; i++)
+            var cvs = jsonToCSV(JsonConvert.SerializeObject(table));
+            if (dlg.ShowDialog() == CommonFileDialogResult.Ok)
             {
-                var thisLineSplit = csvLinesList[i].Split(',');
-                var pairedWithHeader = header.Zip(thisLineSplit, (h, v) => new KeyValuePair<string, string>(h, v));
-
-                yield return new JObject(pairedWithHeader.Select(j => new JProperty(j.Key, j.Value)));
+                using FileStream file = File.Create($@"{dlg.FileName}\{nameof(tableName)}.txt");
+                byte[] title = new UTF8Encoding(true).GetBytes(cvs);
+                file.Write(title);
             }
         }
 

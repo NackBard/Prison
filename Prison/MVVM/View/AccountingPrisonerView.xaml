@@ -28,6 +28,11 @@
                         <GridViewColumn Header="Дата" Width="auto" DisplayMemberBinding="{Binding Date}"/>
                     </GridView>
                 </ListView.View>
+                <ListBox.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Удалить" Command="{Binding DeleteCommand}"></MenuItem>
+                    </ContextMenu>
+                </ListBox.ContextMenu>
             </ListView>
             <TextBlock Text="Корзина" Grid.Row="2" VerticalAlignment="Center" FontSize="25"/>
             <DataGrid Grid.Row="3" DataContext="{Binding AccountingPrisonersDelete}"/>
@@ -39,11 +44,15 @@
                         <GridViewColumn Header="Дата" Width="auto" DisplayMemberBinding="{Binding Date}"/>
                     </GridView>
                 </ListView.View>
+                <ListBox.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Восстановить" Command="{Binding RecoverCommand}"></MenuItem>
+                    </ContextMenu>
+                </ListBox.ContextMenu>
             </ListView>
         </Grid>
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
-                <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <StackPanel>
@@ -57,19 +66,31 @@
                 <TextBox Height="100" Text="{Binding AccountingPrisonerForEdit.Content}"/>
             </StackPanel>
             <Grid VerticalAlignment="Bottom">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Button Grid.Column="0" Content="Добавить" Command="{Binding CreateCommand}"/>
-                <Button Grid.Column="1" Content="Изменить" Command="{Binding UpdateCommand}"/>
-                <Button Grid.Column="2" Content="Удалить" Command="{Binding DeleteCommand}"/>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Column="0" Content="Добавить" Command="{Binding CreateCommand}" Margin="2" Height="25"/>
+                    <Button Grid.Column="1" Content="Изменить" Command="{Binding UpdateCommand}" Margin="2" Height="25"/>
+                    <Button Grid.Column="2" Content="Удалить" Command="{Binding DeleteCommand}" Margin="2" Height="25"/>
+                </Grid>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Column="0" Content="Очистить корзину" Command="{Binding ClearCommand}" Margin="2" Height="25"/>
+                    <Button Grid.Column="1" Content="Восстановить" Command="{Binding RecoverCommand}" Margin="2" Height="25"/>
+                </Grid>
+                <Button Height="25" Grid.Row="3" Content="Экспортировать" Command="{Binding ExportCommand}" Margin="2"/>
             </Grid>
-            <StackPanel Grid.Row="1" VerticalAlignment="Bottom" Orientation="Horizontal">
-                <Button Content="Очистить корзину" Command="{Binding ClearCommand}"/>
-                <Button Content="Восстановить" Command="{Binding RecoverCommand}"/>
-            </StackPanel>
         </Grid>
     </Grid>
 </UserControl>
