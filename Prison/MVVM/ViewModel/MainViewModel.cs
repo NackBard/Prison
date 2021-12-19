@@ -5,7 +5,7 @@ using System.Windows;
 
 namespace Prison.MVVM.ViewModel
 {
-    class MainViewModel : ObservableObject
+    public class MainViewModel : ObservableObject
     {
         public object[] views = new object[]
         {
@@ -28,7 +28,7 @@ namespace Prison.MVVM.ViewModel
             new TypeProductViewModel(),
             new WarehouseViewModel(),
             new WorkerViewModel(),
-            new WorkerViewModel()
+            new WorkViewModel()
         };
 
         #region NextCommand

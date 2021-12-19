@@ -16,6 +16,6 @@
             <TextBox x:Name="LoginBox" Width="500" Height="40" Margin="0,20,0,20" FontSize="24"/>
             <PasswordBox x:Name="PasswordBox" Width="500" Height="40" FontSize="24"/>
         </StackPanel>
-        <Button Content="Войти" Click="Authorization" Grid.Row="1" Height="30" Width="200"/>
+        <Button x:Name="Auth" Content="Войти" Click="Authorization" Grid.Row="1" Height="30" Width="200"/>
     </Grid>
 </Window>
