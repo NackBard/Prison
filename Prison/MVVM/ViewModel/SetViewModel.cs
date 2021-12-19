@@ -88,11 +88,16 @@ namespace Prison.MVVM.ViewModel
         }
         public void Recover()
         {
+            SetSelected = (Set)SetDeleteSelected.Clone();
+            SetForEdit.IsDeleted = false;
+            UpdateAsync();
             Sets.Add(SetDeleteSelected);
             SetsDelete.Remove(SetDeleteSelected);
         }
         public void Drop()
         {
+            SetForEdit.IsDeleted = true;
+            UpdateAsync();
             SetsDelete.Add(SetSelected);
             Sets.Remove(SetSelected);
         }
@@ -117,9 +122,16 @@ namespace Prison.MVVM.ViewModel
 
         public async void ReadAsync()
         {
-            Sets = await ApiConnector.GetAll<Set>(nameof(Sets));
-            foreach (var item in SetsDelete)
-                Sets.Remove(Sets.Where(level => level.Id == item.Id).First());
+            SetsDelete = new ObservableCollection<Set>();
+            Sets = new ObservableCollection<Set>();
+            var all = await ApiConnector.GetAll<Set>(nameof(Sets));
+            foreach (var item in all)
+            {
+                if (item.IsDeleted)
+                    SetsDelete.Add(item);
+                else
+                    Sets.Add(item);
+            }
         }
 
         public async void UpdateAsync()

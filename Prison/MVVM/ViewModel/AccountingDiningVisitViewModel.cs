@@ -111,11 +111,16 @@ namespace Prison.MVVM.ViewModel
         }
         public void Recover()
         {
+            AccountingDiningVisitSelected = (AccountingDiningVisit)AccountingDiningVisitDeleteSelected.Clone();
+            AccountingDiningVisitForEdit.IsDeleted = false;
+            UpdateAsync();
             AccountingDiningVisits.Add(AccountingDiningVisitDeleteSelected);
             AccountingDiningVisitsDelete.Remove(AccountingDiningVisitDeleteSelected);
         }
         public void Drop()
         {
+            AccountingDiningVisitForEdit.IsDeleted = true;
+            UpdateAsync();
             AccountingDiningVisitsDelete.Add(AccountingDiningVisitSelected);
             AccountingDiningVisits.Remove(AccountingDiningVisitSelected);
         }
@@ -143,9 +148,16 @@ namespace Prison.MVVM.ViewModel
         {
             Sets = await ApiConnector.GetAll<Set>(nameof(Sets));
             Prisoners = await ApiConnector.GetAll<Prisoner>(nameof(Prisoners));
-            AccountingDiningVisits = await ApiConnector.GetAll<AccountingDiningVisit>(nameof(AccountingDiningVisits));
-            foreach (var item in AccountingDiningVisitsDelete)
-                AccountingDiningVisits.Remove(AccountingDiningVisits.First(level => level.Id == item.Id));
+            AccountingDiningVisitsDelete = new ObservableCollection<AccountingDiningVisit>();
+            AccountingDiningVisits = new ObservableCollection<AccountingDiningVisit>();
+            var all = await ApiConnector.GetAll<AccountingDiningVisit>(nameof(AccountingDiningVisits));
+            foreach (var item in all)
+            {
+                if (item.IsDeleted)
+                    AccountingDiningVisitsDelete.Add(item);
+                else
+                    AccountingDiningVisits.Add(item);
+            }
         }
 
         public async void UpdateAsync()

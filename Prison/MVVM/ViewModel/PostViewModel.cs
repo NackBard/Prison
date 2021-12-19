@@ -63,8 +63,8 @@ namespace Prison.MVVM.ViewModel
             }
         }
 
-        private ObservableCollection<Set> _accessLevels;
-        public ObservableCollection<Set> AccessLevels
+        private ObservableCollection<AccessLevel> _accessLevels;
+        public ObservableCollection<AccessLevel> AccessLevels
         {
             get => _accessLevels;
             set
@@ -99,11 +99,16 @@ namespace Prison.MVVM.ViewModel
         }
         public void Recover()
         {
+            PostSelected = (Post)PostDeleteSelected.Clone();
+            PostForEdit.IsDeleted = false;
+            UpdateAsync();
             Posts.Add(PostDeleteSelected);
             PostsDelete.Remove(PostDeleteSelected);
         }
         public void Drop()
         {
+            PostForEdit.IsDeleted = true;
+            UpdateAsync();
             PostsDelete.Add(PostSelected);
             Posts.Remove(PostSelected);
         }
@@ -128,10 +133,17 @@ namespace Prison.MVVM.ViewModel
 
         public async void ReadAsync()
         {
-            AccessLevels = await ApiConnector.GetAll<Set>(nameof(AccessLevels));
-            Posts = await ApiConnector.GetAll<Post>(nameof(Posts));
-            foreach (var item in PostsDelete)
-                Posts.Remove(Posts.First(level => level.Id == item.Id));
+            AccessLevels = await ApiConnector.GetAll<AccessLevel>(nameof(AccessLevels));
+            PostsDelete = new ObservableCollection<Post>();
+            Posts = new ObservableCollection<Post>();
+            var all = await ApiConnector.GetAll<Post>(nameof(Posts));
+            foreach (var item in all)
+            {
+                if (item.IsDeleted)
+                    PostsDelete.Add(item);
+                else
+                    Posts.Add(item);
+            }
         }
 
         public async void UpdateAsync()

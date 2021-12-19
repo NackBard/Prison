@@ -111,11 +111,16 @@ namespace Prison.MVVM.ViewModel
         }
         public void Recover()
         {
+            JournalArrivalAndDepartureSelected = (JournalArrivalAndDeparture)JournalArrivalAndDepartureDeleteSelected.Clone();
+            JournalArrivalAndDepartureForEdit.IsDeleted = false;
+            UpdateAsync();
             JournalArrivalAndDepartures.Add(JournalArrivalAndDepartureDeleteSelected);
             JournalArrivalAndDeparturesDelete.Remove(JournalArrivalAndDepartureDeleteSelected);
         }
         public void Drop()
         {
+            JournalArrivalAndDepartureForEdit.IsDeleted = true;
+            UpdateAsync();
             JournalArrivalAndDeparturesDelete.Add(JournalArrivalAndDepartureSelected);
             JournalArrivalAndDepartures.Remove(JournalArrivalAndDepartureSelected);
         }
@@ -143,9 +148,16 @@ namespace Prison.MVVM.ViewModel
         {
             AccountingTypes = await ApiConnector.GetAll<AccountingType>(nameof(AccountingTypes));
             Workers = await ApiConnector.GetAll<Worker>(nameof(Workers));
-            JournalArrivalAndDepartures = await ApiConnector.GetAll<JournalArrivalAndDeparture>(nameof(JournalArrivalAndDepartures));
-            foreach (var item in JournalArrivalAndDeparturesDelete)
-                JournalArrivalAndDepartures.Remove(JournalArrivalAndDepartures.First(level => level.Id == item.Id));
+            JournalArrivalAndDeparturesDelete = new ObservableCollection<JournalArrivalAndDeparture>();
+            JournalArrivalAndDepartures = new ObservableCollection<JournalArrivalAndDeparture>();
+            var all = await ApiConnector.GetAll<JournalArrivalAndDeparture>(nameof(JournalArrivalAndDepartures));
+            foreach (var item in all)
+            {
+                if (item.IsDeleted)
+                    JournalArrivalAndDeparturesDelete.Add(item);
+                else
+                    JournalArrivalAndDepartures.Add(item);
+            }
         }
 
         public async void UpdateAsync()

@@ -110,11 +110,16 @@ namespace Prison.MVVM.ViewModel
         }
         public void Recover()
         {
+            WorkerSelected = (Worker)WorkerDeleteSelected.Clone();
+            WorkerForEdit.IsDeleted = false;
+            UpdateAsync();
             Workers.Add(WorkerDeleteSelected);
             WorkersDelete.Remove(WorkerDeleteSelected);
         }
         public void Drop()
         {
+            WorkerForEdit.IsDeleted = true;
+            UpdateAsync();
             WorkersDelete.Add(WorkerSelected);
             Workers.Remove(WorkerSelected);
         }
@@ -141,9 +146,16 @@ namespace Prison.MVVM.ViewModel
         {
             Posts = await ApiConnector.GetAll<Post>(nameof(Posts));
             Genders = await ApiConnector.GetAll<Gender>(nameof(Genders));
-            Workers = await ApiConnector.GetAll<Worker>(nameof(Workers));
-            foreach (var item in WorkersDelete)
-                Workers.Remove(Workers.First(level => level.Id == item.Id));
+            WorkersDelete = new ObservableCollection<Worker>();
+            Workers = new ObservableCollection<Worker>();
+            var all = await ApiConnector.GetAll<Worker>(nameof(Workers));
+            foreach (var item in all)
+            {
+                if (item.IsDeleted)
+                    WorkersDelete.Add(item);
+                else
+                    Workers.Add(item);
+            }
         }
 
         public async void UpdateAsync()

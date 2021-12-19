@@ -88,11 +88,16 @@ namespace Prison.MVVM.ViewModel
         }
         public void Recover()
         {
+            AccountingTypeSelected = (AccountingType)AccountingTypeDeleteSelected.Clone();
+            AccountingTypeForEdit.IsDeleted = false;
+            UpdateAsync();
             AccountingTypes.Add(AccountingTypeDeleteSelected);
             AccountingTypesDelete.Remove(AccountingTypeDeleteSelected);
         }
         public void Drop()
         {
+            AccountingTypeForEdit.IsDeleted = true;
+            UpdateAsync();
             AccountingTypesDelete.Add(AccountingTypeSelected);
             AccountingTypes.Remove(AccountingTypeSelected);
         }
@@ -119,9 +124,16 @@ namespace Prison.MVVM.ViewModel
 
         public async void ReadAsync()
         {
-            AccountingTypes = await ApiConnector.GetAll<AccountingType>(nameof(AccountingTypes));
-            foreach (var item in AccountingTypesDelete)
-                AccountingTypes.Remove(AccountingTypes.Where(level => level.Id == item.Id).First());
+            AccountingTypesDelete = new ObservableCollection<AccountingType>();
+            AccountingTypes = new ObservableCollection<AccountingType>();
+            var all = await ApiConnector.GetAll<AccountingType>(nameof(AccountingTypes));
+            foreach (var item in all)
+            {
+                if (item.IsDeleted)
+                    AccountingTypesDelete.Add(item);
+                else
+                    AccountingTypes.Add(item);
+            }
         }
 
         public async void UpdateAsync()

@@ -110,11 +110,16 @@ namespace Prison.MVVM.ViewModel
         }
         public void Recover()
         {
+            AccountingRehabilitationWorkSelected = (AccountingRehabilitationWork)AccountingRehabilitationWorkDeleteSelected.Clone();
+            AccountingRehabilitationWorkForEdit.IsDeleted = false;
+            UpdateAsync();
             AccountingRehabilitationWorks.Add(AccountingRehabilitationWorkDeleteSelected);
             AccountingRehabilitationWorksDelete.Remove(AccountingRehabilitationWorkDeleteSelected);
         }
         public void Drop()
         {
+            AccountingRehabilitationWorkForEdit.IsDeleted = true;
+            UpdateAsync();
             AccountingRehabilitationWorksDelete.Add(AccountingRehabilitationWorkSelected);
             AccountingRehabilitationWorks.Remove(AccountingRehabilitationWorkSelected);
         }
@@ -141,9 +146,16 @@ namespace Prison.MVVM.ViewModel
         {
             Works = await ApiConnector.GetAll<Work>(nameof(Works));
             Prisoners = await ApiConnector.GetAll<Prisoner>(nameof(Prisoners));
-            AccountingRehabilitationWorks = await ApiConnector.GetAll<AccountingRehabilitationWork>(nameof(AccountingRehabilitationWorks));
-            foreach (var item in AccountingRehabilitationWorksDelete)
-                AccountingRehabilitationWorks.Remove(AccountingRehabilitationWorks.First(level => level.Id == item.Id));
+            AccountingRehabilitationWorksDelete = new ObservableCollection<AccountingRehabilitationWork>();
+            AccountingRehabilitationWorks = new ObservableCollection<AccountingRehabilitationWork>();
+            var all = await ApiConnector.GetAll<AccountingRehabilitationWork>(nameof(AccountingRehabilitationWorks));
+            foreach (var item in all)
+            {
+                if (item.IsDeleted)
+                    AccountingRehabilitationWorksDelete.Add(item);
+                else
+                    AccountingRehabilitationWorks.Add(item);
+            }
         }
 
         public async void UpdateAsync()

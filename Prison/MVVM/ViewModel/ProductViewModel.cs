@@ -98,11 +98,16 @@ namespace Prison.MVVM.ViewModel
         }
         public void Recover()
         {
+            ProductSelected = (Product)ProductDeleteSelected.Clone();
+            ProductForEdit.IsDeleted = false;
+            UpdateAsync();
             Products.Add(ProductDeleteSelected);
             ProductsDelete.Remove(ProductDeleteSelected);
         }
         public void Drop()
         {
+            ProductForEdit.IsDeleted = true;
+            UpdateAsync();
             ProductsDelete.Add(ProductSelected);
             Products.Remove(ProductSelected);
         }
@@ -130,9 +135,16 @@ namespace Prison.MVVM.ViewModel
         public async void ReadAsync()
         {
             TypeProducts = await ApiConnector.GetAll<TypeProduct>(nameof(TypeProducts));
-            Products = await ApiConnector.GetAll<Product>(nameof(Products));
-            foreach (var item in ProductsDelete)
-                Products.Remove(Products.Where(level => level.Id == item.Id).First());
+            ProductsDelete = new ObservableCollection<Product>();
+            Products = new ObservableCollection<Product>();
+            var all = await ApiConnector.GetAll<Product>(nameof(Products));
+            foreach (var item in all)
+            {
+                if (item.IsDeleted)
+                    ProductsDelete.Add(item);
+                else
+                    Products.Add(item);
+            }
         }
 
         public async void UpdateAsync()

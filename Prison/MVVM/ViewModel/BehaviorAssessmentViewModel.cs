@@ -88,11 +88,16 @@ namespace Prison.MVVM.ViewModel
         }
         public void Recover()
         {
+            BehaviorAssessmentSelected = (BehaviorAssessment)BehaviorAssessmentDeleteSelected.Clone();
+            BehaviorAssessmentForEdit.IsDeleted = false;
+            UpdateAsync();
             BehaviorAssessments.Add(BehaviorAssessmentDeleteSelected);
             BehaviorAssessmentsDelete.Remove(BehaviorAssessmentDeleteSelected);
         }
         public void Drop()
         {
+            BehaviorAssessmentForEdit.IsDeleted = true;
+            UpdateAsync();
             BehaviorAssessmentsDelete.Add(BehaviorAssessmentSelected);
             BehaviorAssessments.Remove(BehaviorAssessmentSelected);
         }
@@ -119,9 +124,16 @@ namespace Prison.MVVM.ViewModel
 
         public async void ReadAsync()
         {
-            BehaviorAssessments = await ApiConnector.GetAll<BehaviorAssessment>(nameof(BehaviorAssessments));
-            foreach (var item in BehaviorAssessmentsDelete)
-                BehaviorAssessments.Remove(BehaviorAssessments.Where(level => level.Id == item.Id).First());
+            BehaviorAssessmentsDelete = new ObservableCollection<BehaviorAssessment>();
+            BehaviorAssessments = new ObservableCollection<BehaviorAssessment>();
+            var all = await ApiConnector.GetAll<BehaviorAssessment>(nameof(BehaviorAssessments));
+            foreach (var item in all)
+            {
+                if (item.IsDeleted)
+                    BehaviorAssessmentsDelete.Add(item);
+                else
+                    BehaviorAssessments.Add(item);
+            }
         }
 
         public async void UpdateAsync()

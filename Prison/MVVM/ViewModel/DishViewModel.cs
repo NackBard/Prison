@@ -99,11 +99,16 @@ namespace Prison.MVVM.ViewModel
         }
         public void Recover()
         {
+            DishSelected = (Dish)DishDeleteSelected.Clone();
+            DishForEdit.IsDeleted = false;
+            UpdateAsync();
             Dishes.Add(DishDeleteSelected);
             DishesDelete.Remove(DishDeleteSelected);
         }
         public void Drop()
         {
+            DishForEdit.IsDeleted = true;
+            UpdateAsync();
             DishesDelete.Add(DishSelected);
             Dishes.Remove(DishSelected);
         }
@@ -129,9 +134,16 @@ namespace Prison.MVVM.ViewModel
         public async void ReadAsync()
         {
             Sets = await ApiConnector.GetAll<Set>(nameof(Sets));
-            Dishes = await ApiConnector.GetAll<Dish>(nameof(Dishes));
-            foreach (var item in DishesDelete)
-                Dishes.Remove(Dishes.First(level => level.Id == item.Id));
+            DishesDelete = new ObservableCollection<Dish>();
+            Dishes = new ObservableCollection<Dish>();
+            var all = await ApiConnector.GetAll<Dish>(nameof(Dishes));
+            foreach (var item in all)
+            {
+                if (item.IsDeleted)
+                    DishesDelete.Add(item);
+                else
+                    Dishes.Add(item);
+            }
         }
 
         public async void UpdateAsync()

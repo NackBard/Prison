@@ -88,11 +88,16 @@ namespace Prison.MVVM.ViewModel
         }
         public void Recover()
         {
+            ProsecutionSelected = (Prosecution)ProsecutionDeleteSelected.Clone();
+            ProsecutionForEdit.IsDeleted = false;
+            UpdateAsync();
             Prosecutions.Add(ProsecutionDeleteSelected);
             ProsecutionsDelete.Remove(ProsecutionDeleteSelected);
         }
         public void Drop()
         {
+            ProsecutionForEdit.IsDeleted = true;
+            UpdateAsync();
             ProsecutionsDelete.Add(ProsecutionSelected);
             Prosecutions.Remove(ProsecutionSelected);
         }
@@ -119,9 +124,16 @@ namespace Prison.MVVM.ViewModel
 
         public async void ReadAsync()
         {
-            Prosecutions = await ApiConnector.GetAll<Prosecution>(nameof(Prosecutions));
-            foreach (var item in ProsecutionsDelete)
-                Prosecutions.Remove(Prosecutions.Where(level => level.Id == item.Id).First());
+            ProsecutionsDelete = new ObservableCollection<Prosecution>();
+            Prosecutions = new ObservableCollection<Prosecution>();
+            var all = await ApiConnector.GetAll<Prosecution>(nameof(Prosecutions));
+            foreach (var item in all)
+            {
+                if (item.IsDeleted)
+                    ProsecutionsDelete.Add(item);
+                else
+                    Prosecutions.Add(item);
+            }
         }
 
         public async void UpdateAsync()

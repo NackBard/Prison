@@ -122,11 +122,16 @@ namespace Prison.MVVM.ViewModel
         }
         public void Recover()
         {
+            AccountingPrisonerSelected = (AccountingPrisoner)AccountingPrisonerDeleteSelected.Clone();
+            AccountingPrisonerForEdit.IsDeleted = false;
+            UpdateAsync();
             AccountingPrisoners.Add(AccountingPrisonerDeleteSelected);
             AccountingPrisonersDelete.Remove(AccountingPrisonerDeleteSelected);
         }
         public void Drop()
         {
+            AccountingPrisonerForEdit.IsDeleted = true;
+            UpdateAsync();
             AccountingPrisonersDelete.Add(AccountingPrisonerSelected);
             AccountingPrisoners.Remove(AccountingPrisonerSelected);
         }
@@ -155,9 +160,16 @@ namespace Prison.MVVM.ViewModel
             BehaviorAssessments = await ApiConnector.GetAll<BehaviorAssessment>(nameof(BehaviorAssessments));
             Workers = await ApiConnector.GetAll<Worker>(nameof(Workers));
             Prisoners = await ApiConnector.GetAll<Prisoner>(nameof(Prisoners));
-            AccountingPrisoners = await ApiConnector.GetAll<AccountingPrisoner>(nameof(AccountingPrisoners));
-            foreach (var item in AccountingPrisonersDelete)
-                AccountingPrisoners.Remove(AccountingPrisoners.First(level => level.Id == item.Id));
+            AccountingPrisonersDelete = new ObservableCollection<AccountingPrisoner>();
+            AccountingPrisoners = new ObservableCollection<AccountingPrisoner>();
+            var all = await ApiConnector.GetAll<AccountingPrisoner>(nameof(AccountingPrisoners));
+            foreach (var item in all)
+            {
+                if (item.IsDeleted)
+                    AccountingPrisonersDelete.Add(item);
+                else
+                    AccountingPrisoners.Add(item);
+            }
         }
 
         public async void UpdateAsync()

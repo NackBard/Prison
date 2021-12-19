@@ -115,11 +115,16 @@ namespace Prison.MVVM.ViewModel
         }
         public void Recover()
         {
+            SalesAccountingSelected = (SalesAccounting)SalesAccountingDeleteSelected.Clone();
+            SalesAccountingForEdit.IsDeleted = false;
+            UpdateAsync();
             SalesAccountings.Add(SalesAccountingDeleteSelected);
             SalesAccountingsDelete.Remove(SalesAccountingDeleteSelected);
         }
         public void Drop()
         {
+            SalesAccountingForEdit.IsDeleted = true;
+            UpdateAsync();
             SalesAccountingsDelete.Add(SalesAccountingSelected);
             SalesAccountings.Remove(SalesAccountingSelected);
         }
@@ -148,9 +153,16 @@ namespace Prison.MVVM.ViewModel
         {
             Products = await ApiConnector.GetAll<Product>(nameof(Products));
             Prisoners = await ApiConnector.GetAll<Prisoner>(nameof(Prisoners));
-            SalesAccountings = await ApiConnector.GetAll<SalesAccounting>(nameof(SalesAccountings));
-            foreach (var item in SalesAccountingsDelete)
-                SalesAccountings.Remove(SalesAccountings.First(level => level.Id == item.Id));
+            SalesAccountingsDelete = new ObservableCollection<SalesAccounting>();
+            SalesAccountings = new ObservableCollection<SalesAccounting>();
+            var all = await ApiConnector.GetAll<SalesAccounting>(nameof(SalesAccountings));
+            foreach (var item in all)
+            {
+                if (item.IsDeleted)
+                    SalesAccountingsDelete.Add(item);
+                else
+                    SalesAccountings.Add(item);
+            }
         }
 
         public async void UpdateAsync()

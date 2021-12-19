@@ -99,11 +99,16 @@ namespace Prison.MVVM.ViewModel
         }
         public void Recover()
         {
+            WarehouseSelected = (Warehouse)WarehouseDeleteSelected.Clone();
+            WarehouseForEdit.IsDeleted = false;
+            UpdateAsync();
             Warehouses.Add(WarehouseDeleteSelected);
             WarehousesDelete.Remove(WarehouseDeleteSelected);
         }
         public void Drop()
         {
+            WarehouseForEdit.IsDeleted = true;
+            UpdateAsync();
             WarehousesDelete.Add(WarehouseSelected);
             Warehouses.Remove(WarehouseSelected);
         }
@@ -131,9 +136,16 @@ namespace Prison.MVVM.ViewModel
         public async void ReadAsync()
         {
             Products = await ApiConnector.GetAll<Product>(nameof(Products));
-            Warehouses = await ApiConnector.GetAll<Warehouse>(nameof(Warehouses));
-            foreach (var item in WarehousesDelete)
-                Warehouses.Remove(Warehouses.Where(level => level.Id == item.Id).First());
+            WarehousesDelete = new ObservableCollection<Warehouse>();
+            Warehouses = new ObservableCollection<Warehouse>();
+            var all = await ApiConnector.GetAll<Warehouse>(nameof(Warehouses));
+            foreach (var item in all)
+            {
+                if (item.IsDeleted)
+                    WarehousesDelete.Add(item);
+                else
+                    Warehouses.Add(item);
+            }
         }
 
         public async void UpdateAsync()
