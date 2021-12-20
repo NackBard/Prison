@@ -5,7 +5,7 @@ using System.Collections.ObjectModel;
 
 namespace Prison.MVVM.ViewModel
 {
-    class AccessLevelViewModel : TableViewModel, ICRUD, ITableModel
+    public class AccessLevelViewModel : TableViewModel, ICRUD, ITableModel
     {
 
         private ObservableCollection<AccessLevel> _accessLevels;

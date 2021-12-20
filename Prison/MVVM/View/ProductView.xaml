@@ -20,7 +20,7 @@
             </Grid.RowDefinitions>
             <TextBlock Text="Товары" Grid.Row="0" VerticalAlignment="Center" FontSize="25"/>
             <DataGrid Grid.Row="1" DataContext="{Binding Products}"/>
-            <ListView Grid.Row="1" ItemsSource="{Binding Products}" SelectedItem="{Binding ProductSelected}">
+            <ListView x:Name="MainListView" Grid.Row="1" ItemsSource="{Binding Products}" SelectedItem="{Binding ProductSelected}">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Наименование" Width="auto" DisplayMemberBinding="{Binding Name}"/>

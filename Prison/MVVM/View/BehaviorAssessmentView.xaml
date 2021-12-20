@@ -20,7 +20,7 @@
             </Grid.RowDefinitions>
             <TextBlock Text="Оценки поведения" Grid.Row="0" VerticalAlignment="Center" FontSize="25"/>
             <DataGrid Grid.Row="1" DataContext="{Binding BehaviorAssessments}"/>
-            <ListView Grid.Row="1" ItemsSource="{Binding BehaviorAssessments}" SelectedItem="{Binding BehaviorAssessmentSelected}">
+            <ListView x:Name="MainListView" Grid.Row="1" ItemsSource="{Binding BehaviorAssessments}" SelectedItem="{Binding BehaviorAssessmentSelected}">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Наименование" Width="auto" DisplayMemberBinding="{Binding Name}"/>

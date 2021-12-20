@@ -20,7 +20,7 @@
             </Grid.RowDefinitions>
             <TextBlock Text="Журнал прихода и ухода" Grid.Row="0" VerticalAlignment="Center" FontSize="25"/>
             <DataGrid Grid.Row="1" DataContext="{Binding JournalArrivalAndDepartures}"/>
-            <ListView Grid.Row="1" ItemsSource="{Binding JournalArrivalAndDepartures}" SelectedItem="{Binding JournalArrivalAndDepartureSelected}">
+            <ListView x:Name="MainListView" Grid.Row="1" ItemsSource="{Binding JournalArrivalAndDepartures}" SelectedItem="{Binding JournalArrivalAndDepartureSelected}">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Номер работника" Width="auto" DisplayMemberBinding="{Binding WorkerId}"/>

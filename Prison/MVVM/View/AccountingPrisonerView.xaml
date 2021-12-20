@@ -20,12 +20,24 @@
             </Grid.RowDefinitions>
             <TextBlock Text="Учёт заключённых" Grid.Row="0" VerticalAlignment="Center" FontSize="25"/>
             <DataGrid Grid.Row="1" DataContext="{Binding AccountingPrisoners}"/>
-            <ListView Grid.Row="1" ItemsSource="{Binding AccountingPrisoners}" SelectedItem="{Binding AccountingPrisonerSelected}">
+            <ListView x:Name="MainListView" Grid.Row="1" ItemsSource="{Binding AccountingPrisoners}" SelectedItem="{Binding AccountingPrisonerSelected}">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Номер заключённого" Width="auto" DisplayMemberBinding="{Binding Prisoner}"/>
-                        <GridViewColumn Header="Номер набора" Width="auto" DisplayMemberBinding="{Binding SetId}"/>
-                        <GridViewColumn Header="Дата" Width="auto" DisplayMemberBinding="{Binding Date}"/>
+                        <GridViewColumn  Width="auto" DisplayMemberBinding="{Binding WorkerId}" >
+                            <GridViewColumnHeader Content="Номер работника" Tag="WorkerId" Click="ColumnSorting"/>
+                        </GridViewColumn>
+                        <GridViewColumn  Width="auto" DisplayMemberBinding="{Binding PrisonerId}" >
+                            <GridViewColumnHeader Content="Номер заключённого" Tag="PrisonerId" Click="ColumnSorting"/>
+                        </GridViewColumn>
+                        <GridViewColumn  Width="auto" DisplayMemberBinding="{Binding AssessmentId}" >
+                            <GridViewColumnHeader Content="Номер оценки" Tag="AssessmentId" Click="ColumnSorting"/>
+                        </GridViewColumn>
+                        <GridViewColumn  Width="auto" DisplayMemberBinding="{Binding Content}" >
+                            <GridViewColumnHeader Content="Содержание" Tag="Content" Click="ColumnSorting"/>
+                        </GridViewColumn>
+                        <GridViewColumn  Width="auto" DisplayMemberBinding="{Binding DateOfEntry}" >
+                            <GridViewColumnHeader Content="Дата занесения" Tag="DateOfEntry" Click="ColumnSorting"/>
+                        </GridViewColumn>
                     </GridView>
                 </ListView.View>
                 <ListBox.ContextMenu>
@@ -39,9 +51,11 @@
             <ListView Grid.Row="3" ItemsSource="{Binding AccountingPrisonersDelete}" SelectedItem="{Binding AccountingPrisonerDeleteSelected}">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Номер заключённого" Width="auto" DisplayMemberBinding="{Binding Prisoner}"/>
-                        <GridViewColumn Header="Номер набора" Width="auto" DisplayMemberBinding="{Binding SetId}"/>
-                        <GridViewColumn Header="Дата" Width="auto" DisplayMemberBinding="{Binding Date}"/>
+                        <GridViewColumn Header="Номер работника" Width="auto" DisplayMemberBinding="{Binding WorkerId}"/>
+                        <GridViewColumn Header="Номер заключённого" Width="auto" DisplayMemberBinding="{Binding PrisonerId}"/>
+                        <GridViewColumn Header="Номер оценки" Width="auto" DisplayMemberBinding="{Binding AssessmentId}"/>
+                        <GridViewColumn Header="Содержание" Width="auto" DisplayMemberBinding="{Binding Content}"/>
+                        <GridViewColumn Header="Дата занесения" Width="auto" DisplayMemberBinding="{Binding DateOfEntry}"/>
                     </GridView>
                 </ListView.View>
                 <ListBox.ContextMenu>

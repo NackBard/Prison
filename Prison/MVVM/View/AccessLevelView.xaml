@@ -19,10 +19,12 @@
             </Grid.RowDefinitions>
             <TextBlock Text="Уровни доступа" Grid.Row="0" VerticalAlignment="Center" FontSize="25"/>
             <DataGrid Grid.Row="1" DataContext="{Binding AccessLevels}"/>
-            <ListView Grid.Row="1" ItemsSource="{Binding AccessLevels}" SelectedItem="{Binding AccessLevelSelected}">
+            <ListView x:Name="MainListView" Grid.Row="1" ItemsSource="{Binding AccessLevels}" SelectedItem="{Binding AccessLevelSelected}">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Наименование" Width="auto" DisplayMemberBinding="{Binding Name}"/>
+                        <GridViewColumn  Width="auto" DisplayMemberBinding="{Binding Name}">
+                            <GridViewColumnHeader Content="Наименование" Tag="Name" Click="ColumnSorting"/>
+                        </GridViewColumn>
                     </GridView>
                 </ListView.View>
                 <ListBox.ContextMenu>

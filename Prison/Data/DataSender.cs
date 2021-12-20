@@ -9,7 +9,7 @@ namespace Prison.Data
 {
     internal class DataSender
     {
-        private const string url = "https://prisonapi.azurewebsites.net/api";
+        private const string url = "https://prisonapi2.azurewebsites.net/api";
 
         public static async Task<string> GetRequest(string tableName)
         {

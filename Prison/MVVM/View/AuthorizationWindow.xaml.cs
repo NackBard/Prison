@@ -1,9 +1,7 @@
-﻿using Prison.Core;
-using Prison.Data;
+﻿using Prison.Data;
 using Prison.Model;
 using Prison.MVVM.Model;
 using Prison.MVVM.ViewModel;
-using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
@@ -16,7 +14,8 @@ namespace Prison.MVVM.View
     /// </summary>
     public partial class AuthorizationWindow : Window
     {
-        private ObservableCollection<Post> Posts = new ObservableCollection<Post>();
+        private ObservableCollection<Post> Posts;
+
         public AuthorizationWindow()
         {
             InitializeComponent();
@@ -32,7 +31,10 @@ namespace Prison.MVVM.View
         {
             Auth.IsEnabled = false;
             if (Validate())
+            {
+                Auth.IsEnabled = false;
                 return;
+            }
 
             Worker worker = await ApiConnector.Authorization<Worker>(new Authorization { Login = LoginBox.Text, Password = PasswordBox.Password });
 
@@ -53,10 +55,10 @@ namespace Prison.MVVM.View
                     Close();
                     break;
                 case "Бухгалтер":
-                    window.ViewModel.views = new object[] { 
-                        new SalesAccountingViewModel(), 
-                        new WorkerViewModel(), 
-                        new PrisonerViewModel(), 
+                    window.ViewModel.views = new object[] {
+                        new SalesAccountingViewModel(),
+                        new WorkerViewModel(),
+                        new PrisonerViewModel(),
                         new AccountingDiningVisitViewModel(),
                         new AccountingPrisonerViewModel(),
                         new AccountingRehabilitationWorkViewModel(),
@@ -71,9 +73,9 @@ namespace Prison.MVVM.View
                     Close();
                     break;
                 case "Член комиссии УДО":
-                    window.ViewModel.views = new object[] { 
-                        new AccountingDiningVisitViewModel(), 
-                        new AccountingPrisonerViewModel(), 
+                    window.ViewModel.views = new object[] {
+                        new AccountingDiningVisitViewModel(),
+                        new AccountingPrisonerViewModel(),
                         new AccountingRehabilitationWorkViewModel(),
                         new SalesAccountingViewModel()
                     };
@@ -86,6 +88,10 @@ namespace Prison.MVVM.View
                         new WarehouseViewModel(),
                         new ProductViewModel()
                     };
+                    window.Show();
+                    Close();
+                    break;
+                case "Администратор":
                     window.Show();
                     Close();
                     break;

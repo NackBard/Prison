@@ -1,11 +1,7 @@
-﻿
-
-using CsvHelper;
+﻿using CsvHelper;
 using CsvHelper.Configuration;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
@@ -18,11 +14,16 @@ namespace Prison.Data
 {
     internal static class TableHelper
     {
-        public static ObservableCollection<T> Sort<T>(ObservableCollection<T> sorter, string propertyName)
+        public static ObservableCollection<T> Sort<T>(ObservableCollection<T> sorter, string propertyName, bool isAscending)
         {
-            var s = sorter.OrderBy(a => a.GetType().GetProperty(propertyName).GetValue(a, null));
+            IOrderedEnumerable<T> sort;
+            if (isAscending)
+                sort = sorter.OrderBy(a => a.GetType().GetProperty(propertyName).GetValue(a, null));
+            else
+                sort = sorter.OrderByDescending(a => a.GetType().GetProperty(propertyName).GetValue(a, null));
+
             sorter = new ObservableCollection<T>();
-            foreach (var item in s)
+            foreach (var item in sort)
                 sorter.Add(item);
             return sorter;
         }

@@ -20,7 +20,7 @@
             </Grid.RowDefinitions>
             <TextBlock Text="Учёт реабилитационных работ" Grid.Row="0" VerticalAlignment="Center" FontSize="25"/>
             <DataGrid Grid.Row="1" DataContext="{Binding AccountingRehabilitationWorks}"/>
-            <ListView Grid.Row="1" ItemsSource="{Binding AccountingRehabilitationWorks}" SelectedItem="{Binding AccountingRehabilitationWorkSelected}">
+            <ListView x:Name="MainListView" Grid.Row="1" ItemsSource="{Binding AccountingRehabilitationWorks}" SelectedItem="{Binding AccountingRehabilitationWorkSelected}">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Номер типа работы" Width="auto" DisplayMemberBinding="{Binding WorkId}"/>

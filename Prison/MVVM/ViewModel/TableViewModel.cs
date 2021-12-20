@@ -2,7 +2,7 @@
 
 namespace Prison.MVVM.ViewModel
 {
-    class TableViewModel : ObservableObject
+    public class TableViewModel : ObservableObject
     {
         private RelayCommand _updateCommand;
         public RelayCommand UpdateCommand

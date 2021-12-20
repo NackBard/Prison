@@ -20,12 +20,18 @@
             </Grid.RowDefinitions>
             <TextBlock Text="Учёт посещения кухни" Grid.Row="0" VerticalAlignment="Center" FontSize="25"/>
             <DataGrid Grid.Row="1" DataContext="{Binding AccountingDiningVisits}"/>
-            <ListView Grid.Row="1" ItemsSource="{Binding AccountingDiningVisits}" SelectedItem="{Binding AccountingDiningVisitSelected}">
+            <ListView x:Name="MainListView" Grid.Row="1" ItemsSource="{Binding AccountingDiningVisits}" SelectedItem="{Binding AccountingDiningVisitSelected}">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Номер заключённого" Width="auto" DisplayMemberBinding="{Binding Prisoner}"/>
-                        <GridViewColumn Header="Номер набора" Width="auto" DisplayMemberBinding="{Binding SetId}"/>
-                        <GridViewColumn Header="Дата" Width="auto" DisplayMemberBinding="{Binding Date}"/>
+                        <GridViewColumn  Width="auto" DisplayMemberBinding="{Binding Prisoner}" >
+                            <GridViewColumnHeader Content="Номер заключённого" Tag="Prisoner" Click="ColumnSorting"/>
+                        </GridViewColumn>
+                        <GridViewColumn  Width="auto" DisplayMemberBinding="{Binding SetId}" >
+                            <GridViewColumnHeader Content="Номер набора" Tag="SetId" Click="ColumnSorting"/>
+                        </GridViewColumn>
+                        <GridViewColumn  Width="auto" DisplayMemberBinding="{Binding Date}" >
+                            <GridViewColumnHeader Content="Дата" Tag="Date" Click="ColumnSorting"/>
+                        </GridViewColumn>
                     </GridView>
                 </ListView.View>
                 <ListBox.ContextMenu>

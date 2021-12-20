@@ -7,7 +7,7 @@ using Prison.Model;
 
 namespace Prison.MVVM.ViewModel
 {
-    class AccountingDiningVisitViewModel : TableViewModel, ICRUD, ITableModel
+    public class AccountingDiningVisitViewModel : TableViewModel, ICRUD, ITableModel
     {
         private ObservableCollection<AccountingDiningVisit> _accountingDiningVisits;
         public ObservableCollection<AccountingDiningVisit> AccountingDiningVisits
