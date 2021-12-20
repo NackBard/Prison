@@ -1,8 +1,7 @@
 ﻿<Application x:Class="Prison.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:Prison"
-              xmlns:viewModel="clr-namespace:Prison.MVVM.ViewModel"
+             xmlns:viewModel="clr-namespace:Prison.MVVM.ViewModel"
              xmlns:view="clr-namespace:Prison.MVVM.View"
              StartupUri="MVVM/View/AuthorizationWindow.xaml">
     <Application.Resources>

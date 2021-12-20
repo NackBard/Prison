@@ -2,7 +2,6 @@
 using Prison.Data;
 using Prison.Model;
 using System.Collections.ObjectModel;
-using System.Linq;
 
 namespace Prison.MVVM.ViewModel
 {

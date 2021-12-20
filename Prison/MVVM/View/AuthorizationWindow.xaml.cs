@@ -5,7 +5,6 @@ using Prison.MVVM.ViewModel;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace Prison.MVVM.View
 {

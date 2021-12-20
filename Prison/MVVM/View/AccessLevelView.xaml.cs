@@ -1,5 +1,4 @@
 ﻿using Prison.Data;
-using Prison.Model;
 using Prison.MVVM.ViewModel;
 using System.Windows;
 using System.Windows.Controls;
