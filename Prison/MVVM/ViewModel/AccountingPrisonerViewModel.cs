@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Linq;
 using Prison.Core;
 using Prison.Data;
 using Prison.Model;
 
 namespace Prison.MVVM.ViewModel
 {
-    class AccountingPrisonerViewModel : TableViewModel, ICRUD, ITableModel
+    public class AccountingPrisonerViewModel : TableViewModel, ICRUD, ITableModel
     {
         private ObservableCollection<AccountingPrisoner> _accountingPrisoners;
         public ObservableCollection<AccountingPrisoner> AccountingPrisoners

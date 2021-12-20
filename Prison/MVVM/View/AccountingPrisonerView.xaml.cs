@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Prison.Data;
+using Prison.MVVM.ViewModel;
 
 namespace Prison.MVVM.View
 {
@@ -23,7 +25,7 @@ namespace Prison.MVVM.View
         private GridViewColumnHeader _sortedColumn;
         private bool isAscending;
 
-        public AccountingDiningVisitViewModel ViewModel => DataContext as AccountingDiningVisitViewModel;
+        public AccountingPrisonerViewModel ViewModel => DataContext as AccountingPrisonerViewModel;
 
         public AccountingPrisonerView()
         {
@@ -38,13 +40,13 @@ namespace Prison.MVVM.View
             if (_sortedColumn == column && !isAscending)
             {
                 isAscending = true;
-                ViewModel.AccountingDiningVisits = TableHelper.Sort(ViewModel.AccountingDiningVisits, sortBy, isAscending);
+                ViewModel.AccountingPrisoners = TableHelper.Sort(ViewModel.AccountingPrisoners, sortBy, isAscending);
             }
             else
             {
                 _sortedColumn = column;
                 isAscending = false;
-                ViewModel.AccountingDiningVisits = TableHelper.Sort(ViewModel.AccountingDiningVisits, sortBy, isAscending);
+                ViewModel.AccountingPrisoners = TableHelper.Sort(ViewModel.AccountingPrisoners, sortBy, isAscending);
             }
         }
     }
