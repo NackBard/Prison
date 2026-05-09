@@ -97,7 +97,7 @@ Prison/
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/Prison.git
+   git clone https://github.com/NackBard/Prison.git
    ```
 
 2. Open `Prison.sln` in Visual Studio.
