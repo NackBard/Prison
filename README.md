@@ -114,10 +114,6 @@ Prison/
 - [ ] Print / PDF report generation
 - [ ] Unit tests for ViewModels
 
-## 📄 License
-
-This project is open source and available under the [MIT License](LICENSE).
-
 ---
 
 > Built with ❤️ using C#, WPF, MVVM, Entity Framework Core and Azure REST API
