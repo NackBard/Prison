@@ -2,10 +2,6 @@
 
 A desktop enterprise application for managing a correctional facility, built with **WPF (.NET 5)** and the **MVVM pattern**. The client communicates with a remote REST API hosted on Azure, implements role-based access control across 6 staff roles, and provides full CRUD operations across 20 database entities with soft-delete and CSV export.
 
-## 📸 Screenshots
-
-> _Add screenshots of the app here_
-
 ## ✨ Features
 
 - 🔐 **Role-based login** — 6 staff roles, each with a dynamically configured set of accessible modules
@@ -105,14 +101,6 @@ Prison/
 3. The app connects to the remote API at `https://prisonapi2.azurewebsites.net/api` — no local database setup needed to run the client.
 
 4. Run the project (F5) and log in with your credentials.
-
-## 🔮 Roadmap
-
-- [ ] Password hashing (currently stored as plain text)
-- [ ] Pagination for large tables
-- [ ] Column filtering in DataGrids
-- [ ] Print / PDF report generation
-- [ ] Unit tests for ViewModels
 
 ---
 
